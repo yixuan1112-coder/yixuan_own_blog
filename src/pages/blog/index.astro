@@ -69,6 +69,22 @@ const posts = (await getCollection('blog')).sort(
 			ul a:hover img {
 				box-shadow: var(--box-shadow);
 			}
+			.empty-state {
+				text-align: center;
+				padding: 3em 1em;
+				color: rgb(var(--gray));
+			}
+			.empty-state p {
+				margin: 0.5em 0;
+			}
+			.empty-hint {
+				font-size: 0.9em;
+			}
+			.empty-hint code {
+				background: rgb(var(--gray-light));
+				padding: 0.15em 0.4em;
+				border-radius: 4px;
+			}
 			@media (max-width: 720px) {
 				ul {
 					gap: 0.5em;
@@ -90,23 +106,36 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+				<h1>Blog</h1>
+				{
+					posts.length === 0 ? (
+						<div class="empty-state">
+							<p>No posts yet — articles are on the way. Check back soon!</p>
+							<p class="empty-hint">
+								Want to write one? Add a <code>.md</code> file in <code>src/content/blog/</code> or use the{' '}
+								<a href="/admin/">admin panel</a>.
+							</p>
+						</div>
+					) : (
+						<ul>
+							{
+								posts.map((post) => (
+									<li>
+										<a href={`/blog/${post.id}/`}>
+											{post.data.heroImage && (
+												<Image width={720} height={360} src={post.data.heroImage} alt="" />
+											)}
+											<h4 class="title">{post.data.title}</h4>
+											<p class="date">
+												<FormattedDate date={post.data.pubDate} />
+											</p>
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					)
+				}
 			</section>
 		</main>
 		<Footer />

@@ -4,6 +4,9 @@ const today = new Date();
 
 <footer>
 	&copy; {today.getFullYear()} Yixuan Xie. All rights reserved.
+	<p class="footer-links">
+		<a href="/admin/">Admin</a>
+	</p>
 	<div class="social-links">
 		<a href="https://github.com/yixuan1112-coder" target="_blank">
 			<span class="sr-only">Yixuan on GitHub</span>
@@ -35,6 +38,17 @@ const today = new Date();
 	</div>
 </footer>
 <style>
+	.footer-links {
+		margin: 0.75em 0 0;
+		font-size: 0.85em;
+	}
+	.footer-links a {
+		color: rgb(var(--gray));
+		text-decoration: none;
+	}
+	.footer-links a:hover {
+		color: rgb(var(--accent));
+	}
 	footer {
 		padding: 2em 1em 6em 1em;
 		background: linear-gradient(var(--gray-gradient)) no-repeat;
