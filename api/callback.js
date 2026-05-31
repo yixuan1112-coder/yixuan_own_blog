@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 	const siteUrl = getSiteUrl();
 
 	if (!clientId || !clientSecret) {
-		res.status(500).send('Missing OAuth credentials. See ADMIN_SETUP.md');
+		res.status(500).send('缺少 OAuth 配置，请查看 ADMIN_SETUP.md');
 		return;
 	}
 

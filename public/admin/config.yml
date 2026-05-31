@@ -1,5 +1,6 @@
-# Decap CMS — edit at https://yixuan-own-blog.vercel.app/admin/
-# OAuth setup: see ADMIN_SETUP.md in the project root
+# Yixuan's website — Decap CMS 后台
+# 线上地址：https://yixuan-own-blog.vercel.app/admin/
+# OAuth 配置见项目根目录 ADMIN_SETUP.md
 
 backend:
   name: github
@@ -7,9 +8,6 @@ backend:
   branch: main
   base_url: https://yixuan-own-blog.vercel.app
   auth_endpoint: api/auth
-
-# Optional: run `npx decap-server` locally for testing without OAuth
-# local_backend: true
 
 media_folder: src/assets/blog
 public_folder: ../../assets/blog
@@ -23,20 +21,20 @@ slug:
 
 collections:
   - name: blog
-    label: Blog Posts
-    label_singular: Blog Post
+    label: 博客文章
+    label_singular: 文章
     folder: src/content/blog
     create: true
     slug: '{{slug}}'
     extension: md
     format: frontmatter
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Description, name: description, widget: string, hint: 'Short summary for SEO and blog list' }
-      - { label: Publish Date, name: pubDate, widget: datetime, format: 'MMM DD YYYY', date_format: 'MMM DD YYYY', time_format: false }
-      - { label: Updated Date, name: updatedDate, widget: datetime, required: false, format: 'MMM DD YYYY', date_format: 'MMM DD YYYY', time_format: false }
-      - { label: Cover Image, name: heroImage, widget: image, required: false, hint: 'Optional cover image' }
-      - label: Body
+      - { label: 标题, name: title, widget: string }
+      - { label: 摘要, name: description, widget: string, hint: '用于博客列表与 SEO' }
+      - { label: 发布日期, name: pubDate, widget: datetime, format: 'MMM DD YYYY', date_format: 'MMM DD YYYY', time_format: false }
+      - { label: 更新日期, name: updatedDate, widget: datetime, required: false, format: 'MMM DD YYYY', date_format: 'MMM DD YYYY', time_format: false }
+      - { label: 封面图, name: heroImage, widget: image, required: false }
+      - label: 正文
         name: body
         widget: markdown
-        hint: 'Embed videos with YouTube/Bilibili iframe HTML in the editor'
+        hint: '视频可粘贴 YouTube / Bilibili 的 iframe 嵌入代码'

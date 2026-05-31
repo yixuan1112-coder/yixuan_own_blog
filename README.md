@@ -1,63 +1,33 @@
-# Astro Starter Kit: Blog
+# Yixuan's website
 
-```sh
-npm create astro@latest -- --template blog
-```
+谢奕轩（Yixuan Xie）的个人网站与博客，使用 Astro 构建，部署在 Vercel。
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **线上地址：** https://yixuan-own-blog.vercel.app
+- **GitHub：** https://github.com/yixuan1112-coder/yixuan_own_blog
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## 项目结构
 
 ```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+├── public/admin/     # Decap CMS 后台（/admin/）
+├── src/content/blog/ # 博客文章（Markdown）
+├── src/pages/        # 页面（首页、About、Blog）
+└── api/              # CMS 登录 OAuth（Vercel）
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 常用命令
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| 命令 | 说明 |
+|------|------|
+| `npm install` | 安装依赖 |
+| `npm run dev` | 本地开发 http://localhost:4321 |
+| `npm run build` | 构建生产版本 |
+| `npm run preview` | 预览构建结果 |
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+## 写博客
 
-Any static assets, like images, can be placed in the `public/` directory.
+- 在 `src/content/blog/` 新建 `.md` 文件，或
+- 打开 `/admin/` 使用后台（需先配置，见 `ADMIN_SETUP.md`）
 
-## 🧞 Commands
+## 配置说明
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+评论（Giscus）与后台（Decap CMS）的环境变量配置，请查看 **`ADMIN_SETUP.md`**。

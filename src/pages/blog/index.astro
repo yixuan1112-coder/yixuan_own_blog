@@ -110,10 +110,10 @@ const posts = (await getCollection('blog')).sort(
 				{
 					posts.length === 0 ? (
 						<div class="empty-state">
-							<p>No posts yet — articles are on the way. Check back soon!</p>
+							<p>暂无文章，敬请期待。</p>
 							<p class="empty-hint">
-								Want to write one? Add a <code>.md</code> file in <code>src/content/blog/</code> or use the{' '}
-								<a href="/admin/">admin panel</a>.
+								想写一篇？在 <code>src/content/blog/</code> 新建 <code>.md</code> 文件，或使用{' '}
+								<a href="/admin/">后台管理</a>。
 							</p>
 						</div>
 					) : (

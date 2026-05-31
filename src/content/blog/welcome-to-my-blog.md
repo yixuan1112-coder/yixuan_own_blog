@@ -1,26 +1,11 @@
 ---
 title: 'Welcome to My Blog'
-description: 'A short introduction to this blog — what I plan to share and how to stay in touch.'
+description: 'Yixuan Xie introduces this blog — CS at NTU, projects, and what she plans to write about.'
 pubDate: 'May 31 2026'
 heroImage: '../../assets/blog-placeholder-3.jpg'
 ---
 
-Hi, I'm **Yixuan Xie**. This is my first post on this blog.
+Hi, I'm **Yixuan Xie**, a Computer Science student at **NTU**. Welcome to my first post!
 
-I built this site with [Astro](https://astro.build/) and host it on Vercel. Here I plan to share:
+I love math, physics, and building things with code. Outside class I enjoy badminton, swimming, running, violin, and calligraphy. If you want a fuller picture, see my [About](/about/) page or [Canva slides](https://yixuanxie.my.canva.site/).I'll write more content later in my blog!
 
-- Things I learn in **Computer Science** and coding experiments
-- Notes from projects (like my [Dream Journey website](https://yixuan-your-dream-journey.netlify.app/))
-- Stories, reflections, and ideas I find worth writing down
-
-## Why start a blog?
-
-Writing helps me organize my thoughts. When I explore a new topic or finish a small project, putting it into words makes the learning stick.
-
-## What's next?
-
-More posts are on the way — tutorials, project write-ups, and maybe some life updates from my journey at NTU.
-
-If you have feedback or want to connect, visit the [About](/about/) page or reach me on [GitHub](https://github.com/yixuan1112-coder).
-
-Thanks for reading!

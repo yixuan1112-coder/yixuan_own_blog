@@ -5,7 +5,7 @@ const isConfigured = Boolean(GISCUS.repoId && GISCUS.categoryId);
 ---
 
 <section class="giscus-wrapper">
-	<h2>Comments</h2>
+	<h2>评论</h2>
 	{
 		isConfigured ? (
 			<script
@@ -28,9 +28,9 @@ const isConfigured = Boolean(GISCUS.repoId && GISCUS.categoryId);
 			/>
 		) : (
 			<p class="giscus-setup">
-				Comments are not configured yet. Enable GitHub Discussions on your repo, then add{' '}
-				<code>PUBLIC_GISCUS_REPO_ID</code> and <code>PUBLIC_GISCUS_CATEGORY_ID</code> in Vercel
-				environment variables. See <code>ADMIN_SETUP.md</code> for steps.
+				评论尚未配置。请先在 GitHub 仓库开启 Discussions，再在 Vercel 添加{' '}
+				<code>PUBLIC_GISCUS_REPO_ID</code> 与 <code>PUBLIC_GISCUS_CATEGORY_ID</code>。步骤见{' '}
+				<code>ADMIN_SETUP.md</code>。
 			</p>
 		)
 	}

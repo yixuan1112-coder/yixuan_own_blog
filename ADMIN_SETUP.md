@@ -1,91 +1,111 @@
-# Admin, Comments & CMS Setup
+# Yixuan's website — 后台与评论配置说明
 
-This site includes:
+本站：**https://yixuan-own-blog.vercel.app**  
+仓库：**yixuan1112-coder/yixuan_own_blog**  
+作者：**Yixuan Xie（谢奕轩）**
 
-- **Blog posts** in `src/content/blog/`
-- **Giscus comments** on blog articles
-- **Decap CMS** at `/admin/` for writing in the browser
+本站包含：
 
----
-
-## 1. Giscus comments
-
-1. Open your GitHub repo: `yixuan1112-coder/yixuan_own_blog`
-2. Go to **Settings → General → Features** → enable **Discussions**
-3. Visit [https://giscus.app](https://giscus.app)
-4. Enter your repo, pick language **English**, category **General** (or create one)
-5. Copy **Repository ID** and **Category ID**
-6. In **Vercel** → your project → **Settings → Environment Variables**, add:
-   - `PUBLIC_GISCUS_REPO_ID` = (from giscus.app)
-   - `PUBLIC_GISCUS_CATEGORY_ID` = (from giscus.app)
-7. Redeploy the site
-
-Comments will appear at the bottom of each blog post.
+- **博客文章**：`src/content/blog/`
+- **Giscus 评论**：文章底部
+- **Decap CMS 后台**：`/admin/`（浏览器里写文章）
 
 ---
 
-## 2. Decap CMS (`/admin/`)
+## 1. Giscus 评论
 
-### Create a GitHub OAuth App
+1. 打开 GitHub 仓库：`yixuan1112-coder/yixuan_own_blog`
+2. **Settings → General → Features** → 开启 **Discussions**
+3. 打开 [https://giscus.app](https://giscus.app)
+4. 填写仓库名，语言选 **中文** 或 **English**，分类选 **General**
+5. 复制 **Repository ID** 和 **Category ID**
+6. 在 **Vercel** → 你的项目 → **Settings → Environment Variables** 添加：
+   - `PUBLIC_GISCUS_REPO_ID` =（来自 giscus.app）
+   - `PUBLIC_GISCUS_CATEGORY_ID` =（来自 giscus.app）
+7. 重新部署（Redeploy）
+
+配置完成后，每篇博客文章底部会显示评论区。
+
+---
+
+## 2. Decap CMS 后台（`/admin/`）
+
+### 创建 GitHub OAuth App
 
 1. GitHub → **Settings → Developer settings → OAuth Apps → New OAuth App**
-2. **Application name:** `Yixuan Blog CMS`
-3. **Homepage URL:** `https://yixuan-own-blog.vercel.app`
-4. **Authorization callback URL:** `https://yixuan-own-blog.vercel.app/api/callback`
-5. Create the app and copy **Client ID** and generate a **Client Secret**
+2. **Application name（应用名称）：** `Yixuan's website 内容后台`
+3. **Homepage URL：** `https://yixuan-own-blog.vercel.app`
+4. **Authorization callback URL：** `https://yixuan-own-blog.vercel.app/api/callback`
+5. 创建后复制 **Client ID**，并生成 **Client Secret**
 
-### Add environment variables on Vercel
+### 在 Vercel 添加环境变量
 
-| Variable | Value |
-|----------|--------|
-| `GITHUB_OAUTH_CLIENT_ID` | Client ID from OAuth App |
-| `GITHUB_OAUTH_CLIENT_SECRET` | Client Secret |
+| 变量名 | 值 |
+|--------|-----|
+| `GITHUB_OAUTH_CLIENT_ID` | OAuth App 的 Client ID |
+| `GITHUB_OAUTH_CLIENT_SECRET` | OAuth App 的 Client Secret |
 | `SITE_URL` | `https://yixuan-own-blog.vercel.app` |
 
-Redeploy after saving.
+保存后请 **重新部署**。
 
-### Use the admin panel
+### 使用后台
 
-1. Open `https://yixuan-own-blog.vercel.app/admin/`
-2. Click **Login with GitHub**
-3. Create or edit blog posts
-4. Click **Publish** — changes are committed to GitHub and Vercel redeploys
+1. 打开 `https://yixuan-own-blog.vercel.app/admin/`
+2. 点击 **Login with GitHub**（使用有仓库写入权限的账号：`yixuan1112-coder`）
+3. 新建或编辑博客文章
+4. 点击 **Publish** → 自动提交到 GitHub → Vercel 自动更新网站
 
-### Embed videos in posts
+### 在文章中嵌入视频
 
-In the markdown body, paste an embed code, for example:
+在正文编辑器中粘贴嵌入代码，例如 YouTube：
 
 ```html
-<iframe width="100%" height="400" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/视频ID" frameborder="0" allowfullscreen></iframe>
 ```
 
-For Bilibili, use the embed URL from the share menu.
+Bilibili 请使用分享菜单里的嵌入链接。
 
 ---
 
-## 3. Write posts without CMS (optional)
+## 3. 不用后台，本地写文章（可选）
 
-Create a file in `src/content/blog/my-post.md`:
+在 `src/content/blog/` 新建 `我的文章.md`：
 
 ```markdown
 ---
-title: 'My Post Title'
-description: 'Short summary'
+title: '文章标题'
+description: '简短摘要'
 pubDate: 'May 31 2026'
 ---
 
-Your content here.
+正文内容……
 ```
 
-Then `git add`, `commit`, `push`.
+然后执行：
+
+```bash
+git add .
+git commit -m "新文章"
+git push origin main
+```
 
 ---
 
-## Troubleshooting
+## 常见问题
 
-| Problem | Fix |
-|---------|-----|
-| Comments not showing | Add Giscus env vars and enable Discussions |
-| `/admin` login fails | Check OAuth callback URL and Vercel env vars |
-| Build fails after CMS upload | Ensure `pubDate` format is like `May 31 2026` |
-| Images not showing | Upload via CMS or place files in `src/assets/blog/` |
+| 问题 | 解决方法 |
+|------|----------|
+| 评论不显示 | 确认已开启 Discussions，并配置 Giscus 环境变量 |
+| `/admin` 无法登录 | 检查 OAuth 回调地址与 Vercel 环境变量 |
+| 后台发布后构建失败 | `pubDate` 格式需为 `May 31 2026` |
+| 图片不显示 | 通过后台上传，或放到 `src/assets/blog/` |
+
+---
+
+## 联系方式（网站内容参考）
+
+- 邮箱：yixuan071112@outlook.com
+- GitHub：https://github.com/yixuan1112-coder
+- LinkedIn：https://www.linkedin.com/in/yixuan-xie-b50932382
+- Instagram：@xuan291547
+- 项目：[Dream Journey](https://yixuan-your-dream-journey.netlify.app/) · [Canva 介绍](https://yixuanxie.my.canva.site/)

@@ -7,7 +7,7 @@ export default function handler(req, res) {
 	const siteUrl = getSiteUrl();
 
 	if (!clientId) {
-		res.status(500).send('Missing GITHUB_OAUTH_CLIENT_ID. See ADMIN_SETUP.md');
+		res.status(500).send('缺少 GITHUB_OAUTH_CLIENT_ID，请查看 ADMIN_SETUP.md');
 		return;
 	}
 

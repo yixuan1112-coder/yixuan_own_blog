@@ -2,9 +2,10 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = "Yixuan's website";
-export const SITE_DESCRIPTION = 'Personal website and blog of Yixuan Xie — projects, updates, and contact info.';
+export const SITE_DESCRIPTION =
+	'Personal website and blog of Yixuan Xie (谢奕轩) — NTU CS student, projects, blog, and contact.';
 
-/** Giscus comments — fill IDs via .env or https://giscus.app (repo must have Discussions enabled) */
+/** Giscus 评论 — 在 .env 或 Vercel 中配置，详见 ADMIN_SETUP.md */
 export const GISCUS = {
 	repo: 'yixuan1112-coder/yixuan_own_blog',
 	repoId: import.meta.env.PUBLIC_GISCUS_REPO_ID ?? '',
@@ -12,5 +13,5 @@ export const GISCUS = {
 	categoryId: import.meta.env.PUBLIC_GISCUS_CATEGORY_ID ?? '',
 	mapping: 'pathname',
 	theme: 'preferred_color_scheme',
-	lang: 'en',
+	lang: 'zh-CN',
 };
