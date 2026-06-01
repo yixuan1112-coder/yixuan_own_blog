@@ -1,5 +1,5 @@
 ---
-title: 'Space Capsule Robot: Restart and Mapping Guide'
+title: 'The daily reflections--June 1st 2026'
 description: 'How to restart the robot over SSH, build a complete map, and enable navigation for space capsule operation.'
 pubDate: 'May 31 2026'
 heroImage: '../../assets/blog-placeholder-3.jpg'
