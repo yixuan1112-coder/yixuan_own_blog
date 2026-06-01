@@ -21,5 +21,5 @@ After the map is built, enable navigation mode and check if the map is compliant
 
 ## 今日杂谈
 好久没有写东西了。上次写东西是在上次。
-之前不相信自己天天都可以写日记记录生活，放弃一次就永远放弃了，但是我今天决定之后每天都要写日记~想记录一下自己的progress，记录一下生活。
+之前不相信自己天天都可以写日记记录生活，放弃一次就永远放弃了，但是我今天决定之后每天都要写日记。想记录一下自己的progress，记录一下生活。
 今天刚刚布置完Marina bay sands expo的亚太零售展的展会，明天开始就是三天的展会，后天要去poly进行机器人展示。<li>除了这些，今天还在稳步推进项目的进行。比如今天查了bus challenge的calculation statistic然后也查看了一下我的launchpod项目为什么看不了前端页面的问题。</li><li>这一周感觉在展会现场可能学不到什么知识吧，所以尝试一下是否可以add some connections.It's also a good choice.See myself tomorrow!</li><li>加油~</li>
