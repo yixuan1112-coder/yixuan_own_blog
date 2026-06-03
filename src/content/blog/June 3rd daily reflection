@@ -1,0 +1,70 @@
+---
+title: 'The daily reflections--June 3rd 2026'
+description: 'How to do UI/UX and some basic robotics operation.'
+pubDate: ' June 3rd 2026'
+heroImage: '../../assets/屏幕截图 2026-06-01 214728.png'
+---
+## What I've learned
+1:同一个ppt文档打开，如果用不同的电脑，会出现不同的字体或者格式（可以在保存的时候尝试：将字体嵌入文档）
+2：how to use the figma to write the frontend code. You can choose the AI-driver mode or the edition mode.Or you can do them together.
+3:一个简单的Javascript前端的代码示例以及解释：
+import axios from 'axios';（引入库）
+export const generateAiMusic = async (bpm, genre, apiKey) => {（将选好的函数按照用户的参数导出的函数，异步操作防止网卡）
+const endpoint = "https://api.wubble.ai/v1/music/generation";（定义要请求的生成的网址）
+const requestBody = {
+    tempo_bpm: parseInt(bpm),
+    style_tags: [genre],
+    duration_seconds: 30
+  };（构造请求体，构造成JSON形式）
+try {（开启异常处理块）
+const response = await axios.post(endpoint, requestBody, {（发起请求，并且await配合着外部的异步处理）
+headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      }
+    });（发送请求头，写清楚自己的密钥权限以及用什么格式打开）
+return response.data;（网络请求成功的话就返回真实的数据）
+} catch (error) {
+    print("API 接入报错:", error.message);
+    throw error;
+  }
+};（如果请求错误了就返回这样的信息）
+4：JSON一般的使用场景就是网络请求；TOML和YAML一般是用来配置一些基本的参数和文件数据的。但是这三种都是轻量级的配置（在机器人action的文件里面，用一系列的JSON形式的参数总和让机器人在定义的时间内到达不同的角度和坐标。）
+5：一个小小的后端代码示例
+from flask import Flask, request, jsonify（引入 Flask 框架的核心组件。Flask 用来建服务，request 用来抓取前端发来的包裹，jsonify 用来把 Python 的字典转换成标准的 JSON 文本返还给前端。）
+app = Flask(__name__)
+@app.route('/v1/music/generation', methods=['POST'])（路由装饰器（Routing）。它在服务器上监听。一旦互联网上有请求敲击 https://你的服务器/v1/music/generation 这个路径，并且用的是 POST 方法，Flask 就会自动叫地下的 handle_music_generation() 函数运作）
+def handle_music_generation():
+auth_header = request.headers.get('Authorization')
+if not auth_header or not auth_header.startswith("Bearer "):
+        return jsonify({"error": "Missing or invalid token"}), 401（如果前端根本没传密钥，或者密钥没有按照规范带上 Bearer  开头就拒绝服务）
+api_key = auth_header.split(" ")[1]（如果是合法的就用空格分开）
+#模拟去数据库查出来的用户信息 (真实开发会用 SQL 语句查)
+user_tier = "Free"
+data = request.json（把前端发在 requestBody 里的 JSON 包裹拆开，转换成 Python 的字典对象（Dictionary），方便我们用键值对拿取数据。）
+duration = data.get('duration_seconds', 30)（获取时长，并且配有默认值）
+if user_tier == 'Free' and duration > 15:
+        return jsonify({"error": "Free tier is limited to 15s tracks."}), 403（B2B 商业逻辑拦截：如果数据库显示你是免费用户（Free），但你却在前端妄想生成超过 15 秒的音乐，就会拦截）
+（如果通过了上述所有验证，这里就会调用底层的 AI 算法去生成音乐（此处省略1000行算法调用代码））
+    mock_url = "https://storage.wubble.ai/outputs/user_01_track.mp3"
+return jsonify({
+        "status": "success",
+        "audio_url": mock_url
+    }), 200（把成功状态和音乐链接用 jsonify 打包，并附带 HTTP 200 状态码）
+注：其中我们是要调用AI算力进行计算，可以把 AI 算力的来源拆解为以下三个核心层面：
+1：AI 训练和推理的本质，就是极其庞大的矩阵乘法（Matrix Multiplication）。GPU 这种能够同时让几千个核心一起算矩阵乘法的架构，就是 AI 算力的物理方面
+2：光有显卡（硬件）还不够，显卡只是个纯苦力，它需要知道“算什么规则”。这个规则就是科学家写出的算法模型（如 Transformer 架构、扩散模型 Diffusion Model）(训练阶段，
+产出结果，推理阶段）
+3：怎么调用（
+import torch # 引入目前全球最主流的 AI 深度学习框架
+# 1. 告诉代码，我们要把计算任务丢给 NVIDIA 显卡（CUDA），而不是 CPU
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# 2. 从服务器硬盘里，把那个训练好的、决定音乐风格的数学大模型加载到显卡的内存（显存）里
+music_model = MyAudioTransformerModel.load_weights("wubble_music_v2.pt").to(device)
+# 3. 显卡全速运转，执行矩阵计算，生成音乐的原始音频数据
+with torch.no_grad(): # 告诉显卡：这是推理阶段，不需要更新参数，全速计算即可
+    generated_audio_tensor = music_model(prompt_tokens, bpm=120)
+或者用云端算力）
+
+
+## 今日杂谈
