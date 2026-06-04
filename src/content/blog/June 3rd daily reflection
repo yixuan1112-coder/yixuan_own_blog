@@ -15,7 +15,7 @@ const requestBody = {
     tempo_bpm: parseInt(bpm),
     style_tags: [genre],
     duration_seconds: 30
-  };（构造请求体，构造成JSON形式）
+  };（构造请求体，构造成JSON形式打包发送）
 try {（开启异常处理块）
 const response = await axios.post(endpoint, requestBody, {（发起请求，并且await配合着外部的异步处理）
 headers: {
