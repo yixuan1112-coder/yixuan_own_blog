@@ -45,19 +45,38 @@ export default async function handler(req, res) {
 	}
 
 	const token = data.access_token;
-	const payload = JSON.stringify({ token, provider: 'github' });
-	const safePayload = payload.replace(/</g, '\\u003c');
+	const safeToken = JSON.stringify(token);
 
 	res.setHeader('Content-Type', 'text/html; charset=utf-8');
+	// Decap CMS expects a two-step postMessage handshake (see decap-cms-lib-auth netlify-auth.js):
+	// 1) popup sends "authorizing:github" → parent echoes it back
+	// 2) popup then sends "authorization:github:success:{token,...}"
 	res.send(`<!DOCTYPE html>
 <html><body><script>
 (function () {
-  const message = 'authorization:github:success:${safePayload}';
-  if (window.opener) {
-    window.opener.postMessage(message, '*');
+  const token = ${safeToken};
+  const data = JSON.stringify({ token: token, provider: 'github' });
+  const successMsg = 'authorization:github:success:' + data;
+
+  function sendToken(origin) {
+    if (!window.opener) {
+      document.body.textContent = '登录成功。请关闭此窗口并返回 /admin/ 页面。';
+      return;
+    }
+    window.opener.postMessage(successMsg, origin || '*');
     window.close();
+  }
+
+  window.addEventListener('message', function (e) {
+    if (e.data === 'authorizing:github') {
+      sendToken(e.origin);
+    }
+  }, false);
+
+  if (window.opener) {
+    window.opener.postMessage('authorizing:github', '*');
   } else {
-    document.body.textContent = 'Login successful. You can close this tab and return to /admin/';
+    document.body.textContent = '登录成功。请关闭此窗口并返回 /admin/ 页面。';
   }
 })();
 </script></body></html>`);

@@ -96,7 +96,8 @@ git push origin main
 | 问题 | 解决方法 |
 |------|----------|
 | 评论不显示 | 确认已开启 Discussions，并配置 Giscus 环境变量 |
-| `/admin` 无法登录 | 检查 OAuth 回调地址与 Vercel 环境变量 |
+| `/admin` 无法登录 | 检查 OAuth 回调地址与 Vercel 环境变量；GitHub 授权后弹窗空白/无反应 → 确认已部署最新 `api/callback.js` 并完成 Redeploy |
+| 授权后弹窗停在空白页 | 多为 OAuth 回调未与 Decap 完成 postMessage 握手，或 `SITE_URL` 与访问域名不一致导致 redirect_uri 不匹配 |
 | 后台发布后构建失败 | `pubDate` 格式需为 `May 31 2026` |
 | 图片不显示 | 通过后台上传，或放到 `src/assets/blog/` |
 
