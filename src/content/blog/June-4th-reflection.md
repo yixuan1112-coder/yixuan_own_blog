@@ -1,5 +1,5 @@
 ---
-title: 'The-daily-reflections--June 4th 2026 — 博客上传踩坑记'
+title: 'The-daily-reflections--June 4th 2026 — summary of the blog before'
 description: 'June 4, 2026 — 复盘 6 月 2 日与 3 日日记在 GitHub + Astro 发布时出错的原因，并附上以后写帖的检查清单。'
 pubDate: 'June 4 2026'
 heroImage: '../../assets/blog-placeholder-3.jpg'
@@ -9,37 +9,7 @@ heroImage: '../../assets/blog-placeholder-3.jpg'
 
 今天不写新技能点，而是把前两天**发博客时踩过的坑**整理成一篇说明。目标很简单：以后复制、粘贴、上传 Markdown 时，少踩同样的雷。
 
----
-
-### 1. 从 GitHub 网页或截图复制，正文会「缺尾巴」
-
-6 月 2 日的稿子里，「今日杂谈」在本地是完整的长段落；上传到仓库后，线上版本却**在中间被截断**，后面几条心得和结尾句都没了。
-
-常见原因包括：
-
-- 在 GitHub **网页编辑器**里只粘贴了可见区域，没有滚到底确认全文；
-- 从**截图或 PDF**里手打/复制，漏了后半段；
-- 在 CMS 或聊天工具里**分段粘贴**，第二次粘贴失败却没有发现。
-
-**教训**：发之前用本地预览或 `npm run build` 看一眼渲染结果，并对照源文件行数/字数，确认「今日杂谈」没有突然在半路结束。
-
----
-
-### 2. Frontmatter 的 `description` 抄错了别的文章
-
-有一版 frontmatter 里，`description` 仍是**另一篇旧帖**的英文摘要（例如机器人、展位相关），和 6 月 2 日日记内容完全对不上。
-
-这不一定会让构建失败，但会影响：
-
-- 博客列表页的摘要；
-- RSS / 部分社交分享预览；
-- 自己以后搜索、归档时的可读性。
-
-**教训**：`title`、`description`、`pubDate` 三件套要**对应当天正文**，不要从上一篇复制后忘记改。
-
----
-
-### 3. `heroImage` 路径必须落在 `src/assets/` 里
+### 1. `heroImage` 路径必须落在 `src/assets/` 里
 
 Astro 的 `heroImage` 使用 content collection 的 `image()` 校验，路径要指向**项目内已纳入构建的图片**，例如：
 
@@ -53,7 +23,7 @@ heroImage: '../../assets/blog-placeholder-3.jpg'
 
 ---
 
-### 4. `pubDate` 写法：`June 2nd` 和 `June 2` 的差别
+### 2. `pubDate` 写法：`June 2nd` 和 `June 2` 的差别
 
 本仓库 schema 使用 `z.coerce.date()` 解析日期字符串。实践中：
 
@@ -140,6 +110,4 @@ npm run build
 
 ## 今日杂谈
 
-把失败原因写下来，也是为了提醒自己：**工具链是严格的，马虎的粘贴会在最后一刻才暴露**。接下来几天我会继续用「每日反思」系列，但会先把 checklist 走一遍再点 publish。
-
-However, tomorrow is another day! 🤩
+今天展会终于结束了，搬东西很累，但是今晚见到小汪同志之后顿时活力满满。第二天还要搬一天的宿舍，今天犹豫过后就请假了。希望明天能顺利搬宿舍并且回血！
