@@ -1,8 +1,8 @@
 ---
-title: 'The-daily-reflections--June 4th 2026 — summary of the blog before'
-description: 'June 4, 2026 — 复盘 6 月 2 日与 3 日日记在 GitHub + Astro 发布时出错的原因，并附上以后写帖的检查清单。'
-pubDate: 'June 4 2026'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+title: The-daily-reflections--June 4th 2026 — summary of the blog before
+description: June 4, 2026 — 复盘 6 月 2 日与 3 日日记在 GitHub + Astro 发布时出错的原因，并附上以后写帖的检查清单。
+pubDate: June 4 2026
+heroImage: ""
 ---
 
 ## What I've Learned
