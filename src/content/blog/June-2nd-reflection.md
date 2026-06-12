@@ -1,8 +1,9 @@
 ---
-title: 'The-daily-reflections--June 2nd 2026'
-description: 'Daily reflection for June 2, 2026 — video encoding, NoMachine and the robot, booth connections, and a busy afternoon.'
-pubDate: 'June 2 2026'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+title: The-daily-reflections--June 2nd 2026
+description: Daily reflection for June 2, 2026 — video encoding, NoMachine and
+  the robot, booth connections, and a busy afternoon.
+pubDate: June 2 2026
+heroImage: ""
 ---
 
 ## What I've learned
