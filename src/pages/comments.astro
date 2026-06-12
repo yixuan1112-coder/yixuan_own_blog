@@ -1,0 +1,40 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Giscus from '../components/Giscus.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Comments | ${SITE_TITLE}`}
+			description="A shared comment space for visitors to leave messages with GitHub login."
+		/>
+		<style>
+			main {
+				width: 820px;
+			}
+			.intro {
+				margin-bottom: 2em;
+			}
+			.intro p {
+				color: rgb(var(--gray));
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="intro">
+				<h1>Comments</h1>
+				<p>Leave a message here with your GitHub account.</p>
+			</section>
+			<Giscus />
+		</main>
+		<Footer />
+	</body>
+</html>
