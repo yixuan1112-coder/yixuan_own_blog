@@ -1,8 +1,9 @@
 ---
-title: 'Welcome to My Blog'
-description: 'Yixuan Xie introduces this blog — CS at NTU, projects, and what she plans to write about.'
-pubDate: 'May 31 2026'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+title: Welcome to My Blog
+description: Yixuan Xie introduces this blog — CS at NTU, projects, and what she
+  plans to write about.
+pubDate: May 31 2026
+heroImage: ""
 ---
 
 Hi, I'm **Yixuan Xie**, a Computer Science student at **NTU**. Welcome to my first post!
