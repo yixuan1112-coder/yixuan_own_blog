@@ -1,8 +1,8 @@
 # Yixuan's website — 后台与评论配置说明
 
-本站：**[https://yixuan-own-blog.vercel.app](https://yixuan-own-blog.vercel.app)**  
+本站：**https://yixuan-own-blog.vercel.app**  
 仓库：**yixuan1112-coder/yixuan_own_blog**  
-作者：**Yixuan Xie**
+作者：**Yixuan Xie（谢奕轩）**
 
 本站包含：
 
@@ -20,8 +20,8 @@
 4. 填写仓库名，语言选 **中文** 或 **English**，分类选 **General**
 5. 复制 **Repository ID** 和 **Category ID**
 6. 在 **Vercel** → 你的项目 → **Settings → Environment Variables** 添加：
-  - `PUBLIC_GISCUS_REPO_ID` =（来自 giscus.app）
-  - `PUBLIC_GISCUS_CATEGORY_ID` =（来自 giscus.app）
+   - `PUBLIC_GISCUS_REPO_ID` =（来自 giscus.app）
+   - `PUBLIC_GISCUS_CATEGORY_ID` =（来自 giscus.app）
 7. 重新部署（Redeploy）
 
 配置完成后，每篇博客文章底部会显示评论区。
@@ -40,13 +40,11 @@
 
 ### 在 Vercel 添加环境变量
 
-
-| 变量名                          | 值                                    |
-| ---------------------------- | ------------------------------------ |
-| `GITHUB_OAUTH_CLIENT_ID`     | OAuth App 的 Client ID                |
-| `GITHUB_OAUTH_CLIENT_SECRET` | OAuth App 的 Client Secret            |
-| `SITE_URL`                   | `https://yixuan-own-blog.vercel.app` |
-
+| 变量名 | 值 |
+|--------|-----|
+| `GITHUB_OAUTH_CLIENT_ID` | OAuth App 的 Client ID |
+| `GITHUB_OAUTH_CLIENT_SECRET` | OAuth App 的 Client Secret |
+| `SITE_URL` | `https://yixuan-own-blog.vercel.app` |
 
 保存后请 **重新部署**。
 
@@ -95,22 +93,20 @@ git push origin main
 
 ## 常见问题
 
-
-| 问题            | 解决方法                              |
-| ------------- | --------------------------------- |
-| 评论不显示         | 确认已开启 Discussions，并配置 Giscus 环境变量 |
-| `/admin` 无法登录 | 检查 OAuth 回调地址与 Vercel 环境变量        |
-| 后台发布后构建失败     | `pubDate` 格式需为 `May 31 2026`      |
-| 图片不显示         | 通过后台上传，或放到 `src/assets/blog/`     |
-
+| 问题 | 解决方法 |
+|------|----------|
+| 评论不显示 | 确认已开启 Discussions，并配置 Giscus 环境变量 |
+| `/admin` 无法登录 | 检查 OAuth 回调地址与 Vercel 环境变量；GitHub 授权后弹窗空白/无反应 → 确认已部署最新 `api/callback.js` 并完成 Redeploy |
+| 授权后弹窗停在空白页 | 多为 OAuth 回调未与 Decap 完成 postMessage 握手，或 `SITE_URL` 与访问域名不一致导致 redirect_uri 不匹配 |
+| 后台发布后构建失败 | `pubDate` 格式需为 `May 31 2026` |
+| 图片不显示 | 通过后台上传，或放到 `src/assets/blog/` |
 
 ---
 
 ## 联系方式（网站内容参考）
 
-- 邮箱：[yixuan071112@outlook.com](mailto:yixuan071112@outlook.com)
-- GitHub：[https://github.com/yixuan1112-coder](https://github.com/yixuan1112-coder)
-- LinkedIn：[https://www.linkedin.com/in/yixuan-xie-b50932382](https://www.linkedin.com/in/yixuan-xie-b50932382)
+- 邮箱：yixuan071112@outlook.com
+- GitHub：https://github.com/yixuan1112-coder
+- LinkedIn：https://www.linkedin.com/in/yixuan-xie-b50932382
 - Instagram：@xuan291547
 - 项目：[Dream Journey](https://yixuan-your-dream-journey.netlify.app/) · [Canva 介绍](https://yixuanxie.my.canva.site/)
-
