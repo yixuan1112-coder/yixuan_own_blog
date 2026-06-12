@@ -1,8 +1,9 @@
 ---
-title: 'The daily reflections--June 1st 2026'
-description: 'How to restart the robot over SSH, build a complete map, and enable navigation for space capsule operation.'
-pubDate: 'May 31 2026'
-heroImage: '../../assets/屏幕截图 2026-06-01 214728.png'
+title: The daily reflections--June 1st 2026
+description: How to restart the robot over SSH, build a complete map, and enable
+  navigation for space capsule operation.
+pubDate: May 31 2026
+heroImage: ""
 ---
 ## What I've learned
 Restarting the machine generally involves first connecting your computer and the robot to the same Wi-Fi network, then remotely logging in via SSH and using conda to access the robot's virtual environment.
