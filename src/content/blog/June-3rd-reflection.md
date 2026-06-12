@@ -1,8 +1,9 @@
 ---
-title: 'The-daily-reflections--June 3rd 2026'
-description: 'Daily reflection for June 3, 2026 — UI/UX with Figma, axios and Flask examples, config formats (JSON/TOML/YAML), and basic robotics operation.'
-pubDate: 'June 3 2026'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+title: The-daily-reflections--June 3rd 2026
+description: Daily reflection for June 3, 2026 — UI/UX with Figma, axios and
+  Flask examples, config formats (JSON/TOML/YAML), and basic robotics operation.
+pubDate: June 3 2026
+heroImage: ""
 ---
 
 ## What I've Learned
