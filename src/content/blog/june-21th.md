@@ -6,15 +6,15 @@ updatedDate: Jun 21 2026
 ---
 ## 这门课是：Advanced Cloud Technology Management: Strategies for Enterprise Deployment
 
-## 下面是我的的回答：
+###### 下面是我的的回答：
 
-## Question 1: Personal Introduction and Course Expectations
+#### Question 1: Personal Introduction and Course Expectations
 
 **Self-Introduction:** Hello everyone, my name is xie yixuan. I am deeply passionate about software engineering, application development, and the orchestration of modern digital workflows. My technical background includes hands-on experience with programming environments, development platforms, and collaborative design suites. Over the past semesters, I have developed an increasing interest in how localized software builds transition into robust, enterprise-scale production systems.
 
 **Course Expectations:** My primary expectation for this course, *Advanced Cloud Technology Management: Strategies for Enterprise Deployment*, is to bridge the conceptual gap between software development and large-scale cloud operations. Specifically, I aim to master the tactical deployment strategies required to build high-availability architectures and fault-tolerant systems. Furthermore, I look forward to exploring cutting-edge developer tools—such as Cursor AI and Claude Code—and understanding how they can be leveraged to streamline containerized service orchestration and lifecycle management in enterprise environments.
 
-## Question 2: Definition of a System
+#### Question 2: Definition of a System
 
 In engineering and computer science, a **system** is defined as a cohesive conglomerate of interrelated, interacting, and interdependent components configured to operate collectively to achieve a predefined objective.
 
@@ -26,7 +26,7 @@ Structurally, an information system is governed by three fundamental phases:
 
 The defining characteristic of a system is **synergy**—the performance and output of the integrated whole transcend the mere sum of its individual isolated components.
 
-## Question3: Definition of the Cloud
+#### Question3: Definition of the Cloud
 
 **The Cloud** (or **Cloud Computing**) refers to the on-demand, ubiquitous delivery of computing resources—including servers, storage, databases, networking, and software—over the Internet under a fractional consumption or pay-as-you-go pricing model.
 
@@ -51,7 +51,5 @@ From an architectural standpoint, the cloud abstracts physical infrastructure th
 * **Definition:** SaaS delivers a completely functional, end-to-end software application managed entirely by the vendor and accessed by users via a web browser or thin client API.
 * **User Responsibility:** The consumer bears zero technical or administrative overhead regarding infrastructure or application maintenance. Responsibility is restricted strictly to end-user data input and application-level configuration.
 * **Industry Examples:** Google Workspace (Gmail), Canva, Salesforce, Microsoft 365.
-
- 
 
 Above is my roughly understanding of the discussion problems. Thanks!
