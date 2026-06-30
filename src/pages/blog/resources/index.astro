@@ -1,0 +1,46 @@
+﻿---
+import BaseHead from '../../../components/BaseHead.astro';
+import BlogNav from '../../../components/BlogNav.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_TITLE } from '../../../consts';
+
+const groups = [
+	{
+		heading: 'Projects',
+		items: [
+			{ title: "Yixuan's Dream Journey", by: 'personal website', href: 'https://yixuan-your-dream-journey.netlify.app/', note: 'A website I built myself.' },
+			{ title: 'Canva introduction slides', by: 'visual intro', href: 'https://yixuanxie.my.canva.site/', note: 'A visual overview about me.' },
+		],
+	},
+	{
+		heading: 'Study',
+		items: [
+			{ title: 'CS50', by: 'Harvard / David Malan', href: 'https://cs50.harvard.edu', note: 'A strong first computer-science course.' },
+			{ title: 'Missing Semester', by: 'MIT', href: 'https://missing.csail.mit.edu', note: 'Practical tooling for developers.' },
+			{ title: 'MDN Web Docs', by: 'Mozilla', href: 'https://developer.mozilla.org', note: 'Reference for the web platform.' },
+		],
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head><BaseHead title={`Study Resources - ${SITE_TITLE}`} description="Books, courses, projects, and references." /></head>
+	<body>
+		<div class="site-frame">
+			<Header />
+			<main class="page-main"><div class="content-page">
+				<BlogNav />
+				<header class="page-heading"><h1 class="pixel-title page-title">Study Resources</h1><p>A short list of materials and links I keep coming back to.</p></header>
+				{groups.map((group) => (
+					<section class="resource-group">
+						<h2>{group.heading}</h2>
+						<ul>{group.items.map((item) => <li><a href={item.href} target="_blank" rel="noreferrer">{item.title}</a><span> - {item.by}</span><p>{item.note}</p></li>)}</ul>
+					</section>
+				))}
+			</div></main>
+			<Footer />
+		</div>
+	</body>
+</html>

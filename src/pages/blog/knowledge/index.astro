@@ -1,0 +1,29 @@
+﻿---
+import BaseHead from '../../../components/BaseHead.astro';
+import BlogNav from '../../../components/BlogNav.astro';
+import Footer from '../../../components/Footer.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_TITLE } from '../../../consts';
+
+const items = [
+	{ title: 'Computer science', body: 'Notes and discoveries from learning programming, CTF, tools, and systems.' },
+	{ title: 'Math and physics', body: 'Ideas from geometry, mechanics, logic, and the sciences I keep returning to.' },
+	{ title: 'Building personal tools', body: 'Small lessons from turning an idea into a website, script, or working product.' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head><BaseHead title={`Interesting Knowledge - ${SITE_TITLE}`} description="Small facts and ideas worth sharing." /></head>
+	<body>
+		<div class="site-frame">
+			<Header />
+			<main class="page-main"><div class="content-page">
+				<BlogNav />
+				<header class="page-heading"><h1 class="pixel-title page-title">Interesting Knowledge</h1><p>Small things I learned and want to remember.</p></header>
+				<ul class="simple-list">{items.map((item) => <li><h2>{item.title}</h2><p>{item.body}</p></li>)}</ul>
+			</div></main>
+			<Footer />
+		</div>
+	</body>
+</html>

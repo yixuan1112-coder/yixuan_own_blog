@@ -1,0 +1,17 @@
+﻿---
+const sections = [
+	{ href: '/blog/', label: 'posts' },
+	{ href: '/blog/resources/', label: 'resources' },
+	{ href: '/blog/knowledge/', label: 'knowledge' },
+	{ href: '/blog/thoughts/', label: 'thoughts' },
+	{ href: '/blog/friends/', label: 'friends' },
+	{ href: '/blog/comments/', label: 'comments' },
+];
+const pathname = Astro.url.pathname;
+---
+
+<nav class="blog-nav" aria-label="Blog navigation">
+	{sections.map((section) => (
+		<a class:list={{ active: section.href === '/blog/' ? pathname === '/blog/' : pathname.startsWith(section.href) }} href={section.href}>[{section.label}]</a>
+	))}
+</nav>

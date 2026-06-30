@@ -1,0 +1,24 @@
+﻿---
+import BaseHead from '../../../components/BaseHead.astro';
+import BlogNav from '../../../components/BlogNav.astro';
+import Footer from '../../../components/Footer.astro';
+import Giscus from '../../../components/Giscus.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_TITLE } from '../../../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head><BaseHead title={`Comments - ${SITE_TITLE}`} description="Leave a note with GitHub login." /></head>
+	<body>
+		<div class="site-frame">
+			<Header />
+			<main class="page-main"><div class="content-page">
+				<BlogNav />
+				<header class="page-heading"><h1 class="pixel-title page-title">Comments</h1><p>A shared comment space using the existing GitHub login comments setup.</p></header>
+				<Giscus />
+			</div></main>
+			<Footer />
+		</div>
+	</body>
+</html>

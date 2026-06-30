@@ -1,49 +1,77 @@
----
+﻿---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const recentPosts = posts.slice(0, 8);
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title="Yixuan Xie" description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header />
-		<main>
-			<h1>Welcome to Yixuan's pages!</h1>
-			<p>
-				Hi, I'm <strong>Yixuan Xie</strong> — an NTU Computer Science student. This site is my personal
-				blog and portfolio. Learn more on <a href="/about/">About Me</a> or my
-				<a href="https://www.linkedin.com/in/yixuan-xie-b50932382">LinkedIn</a>.
-			</p>
+		<div class="site-frame">
+			<Header />
+			<main class="page-main">
+				<div class="home-page">
+					<header class="home-hero">
+						<h1 class="pixel-title home-title">YIXUAN</h1>
 
-			<h2>Projects</h2>
-			<ul>
-				<li>
-					<a href="https://yixuan-your-dream-journey.netlify.app/">Yixuan's Dream Journey</a> — website I
-					built myself
-				</li>
-				<li>
-					<a href="https://yixuanxie.my.canva.site/">Canva introduction slides</a> — visual intro about me
-				</li>
-				<li><a href="/blog/">Blog</a> — articles and updates</li>
-			</ul>
+						<nav class="home-socials" aria-label="Social links">
+							<a href="mailto:yixuan071112@outlook.com">email</a>
+							<span aria-hidden="true">/</span>
+							<a href="https://github.com/yixuan1112-coder" target="_blank" rel="noreferrer">github</a>
+							<span aria-hidden="true">/</span>
+							<a href="https://www.linkedin.com/in/yixuan-xie-b50932382" target="_blank" rel="noreferrer">linkedin</a>
+							<span aria-hidden="true">/</span>
+							<a href="https://www.instagram.com/xuan291547" target="_blank" rel="noreferrer">instagram</a>
+						</nav>
 
-			<h2>Contact</h2>
-			<ul>
-				<li>Email: <a href="mailto:yixuan071112@outlook.com">yixuan071112@outlook.com</a></li>
-				<li>GitHub: <a href="https://github.com/yixuan1112-coder">yixuan1112-coder</a></li>
-				<li>Instagram: <a href="https://www.instagram.com/xuan291547">@xuan291547</a></li>
-				<li>WeChat: x19180413863 · QQ: 2013123886</li>
-				<li>Phone: (+65) 84379180 · (+86) 19180413863</li>
-				<li>WhatsApp / Telegram: (+65) 84379180</li>
-			</ul>
+						<div class="pixel-avatar" aria-hidden="true">
+							{Array.from({ length: 64 }).map((_, i) => {
+								const palette = ['#2b2b2b', '#d64545', '#e0a93b', '#3a8fb7', '#6aa84f', '#8a4fb0', '#f5f3ee'];
+								return <span style={`background: ${palette[(i * 7 + (i % 5)) % palette.length]}`}></span>;
+							})}
+						</div>
 
-			<p>More to explore — stay tuned for updates!</p>
-		</main>
-		<Footer />
+						<p>
+							Hello. I'm <strong>Yixuan Xie</strong>, an NTU Computer Science student. This is my personal
+							website for projects, reflections, learning notes, and contact links.
+						</p>
+
+						<a class="text-link" href="/about/">about this blog</a>
+					</header>
+
+					<section class="home-sections" aria-label="Sections">
+						<a href="/blog/">[Blog]</a>
+						<a href="/blog/resources/">[Resources]</a>
+						<a href="/blog/knowledge/">[Knowledge]</a>
+						<a href="/blog/thoughts/">[Thoughts]</a>
+						<a href="/blog/friends/">[Friends]</a>
+						<a href="/blog/comments/">[Comments]</a>
+					</section>
+
+					<section class="post-list home-post-list" aria-label="Recent posts">
+						<ul>
+							{recentPosts.map((post) => (
+								<li>
+									<div class="post-date"><FormattedDate date={post.data.pubDate} /></div>
+									<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				</div>
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>
