@@ -168,18 +168,60 @@ img {
 }
 
 .pixel-avatar {
-	display: grid;
-	grid-template-columns: repeat(8, 1fr);
-	grid-template-rows: repeat(8, 1fr);
-	width: 7rem;
-	height: 7rem;
+	width: 7.5rem;
+	height: 7.5rem;
 	margin: 2rem auto 0;
-	overflow: hidden;
-	border: 1px solid var(--border);
-	border-radius: 999px;
 	image-rendering: pixelated;
 }
 
+.dino-avatar {
+	position: relative;
+	background: transparent;
+}
+
+.dino-pixel,
+.dino-eye {
+	position: absolute;
+	left: calc(var(--x) * 0.5rem + 0.75rem);
+	top: calc(var(--y) * 0.5rem + 0.15rem);
+	width: 0.5rem;
+	height: 0.5rem;
+}
+
+.dino-pixel {
+	background: #4f4f4f;
+	box-shadow: 0 0 0 0.01rem #4f4f4f;
+}
+
+.dino-eye {
+	background: var(--background);
+	z-index: 1;
+}
+
+.dino-ground {
+	position: absolute;
+	height: 0.12rem;
+	background: #2b2b2b;
+}
+
+.dino-ground-left {
+	left: 0.25rem;
+	bottom: 0.7rem;
+	width: 1.2rem;
+}
+
+.dino-ground-mid {
+	right: 0.35rem;
+	bottom: 0.65rem;
+	width: 2.2rem;
+}
+
+.dino-ground-dot {
+	right: 0.1rem;
+	bottom: 0.25rem;
+	width: 0.18rem;
+	height: 0.18rem;
+}
 .home-hero p {
 	margin: 1.5rem auto 0;
 	max-width: 36rem;
@@ -510,3 +552,4 @@ img {
 .empty-state p {
 	margin: 0;
 }
+
