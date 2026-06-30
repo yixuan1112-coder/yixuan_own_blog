@@ -4,6 +4,10 @@ import BlogNav from '../../../components/BlogNav.astro';
 import Footer from '../../../components/Footer.astro';
 import Header from '../../../components/Header.astro';
 import { SITE_TITLE } from '../../../consts';
+
+const friends = [
+	{ name: 'cirnovsky', href: 'https://guanyu.me/' },
+];
 ---
 
 <!doctype html>
@@ -14,8 +18,16 @@ import { SITE_TITLE } from '../../../consts';
 			<Header />
 			<main class="page-main"><div class="content-page">
 				<BlogNav />
-				<header class="page-heading"><h1 class="pixel-title page-title">Friends</h1><p>Friend blog links will be added here later.</p></header>
-				<div class="empty-state"><p>No friends yet.</p></div>
+				<header class="page-heading"><h1 class="pixel-title page-title">Friends</h1><p>Friend blog links.</p></header>
+				{friends.length === 0 ? (
+					<div class="empty-state"><p>No friends yet.</p></div>
+				) : (
+					<ul class="simple-list link-list">
+						{friends.map((friend) => (
+							<li><a href={friend.href} target="_blank" rel="noreferrer">{friend.name}</a></li>
+						))}
+					</ul>
+				)}
 			</div></main>
 			<Footer />
 		</div>
