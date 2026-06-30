@@ -167,25 +167,37 @@ img {
 	color: var(--muted-foreground);
 }
 
+.dino-scene {
+	position: relative;
+	width: min(calc(100vw - 2rem), 58rem);
+	height: 8.5rem;
+	margin: 2rem 50% 0;
+	transform: translateX(-50%);
+	overflow: hidden;
+	image-rendering: pixelated;
+}
+
 .pixel-avatar {
-	width: 7.5rem;
-	height: 7.5rem;
-	margin: 2rem auto 0;
 	image-rendering: pixelated;
 }
 
 .dino-avatar {
-	position: relative;
+	--pixel: 0.42rem;
+	position: absolute;
+	left: clamp(1rem, 16vw, 9rem);
+	bottom: 1.15rem;
+	width: 5.3rem;
+	height: 5.3rem;
 	background: transparent;
 }
 
 .dino-pixel,
 .dino-eye {
 	position: absolute;
-	left: calc(var(--x) * 0.5rem + 0.75rem);
-	top: calc(var(--y) * 0.5rem + 0.15rem);
-	width: 0.5rem;
-	height: 0.5rem;
+	left: calc(var(--x) * var(--pixel));
+	top: calc(var(--y) * var(--pixel));
+	width: var(--pixel);
+	height: var(--pixel);
 }
 
 .dino-pixel {
@@ -198,29 +210,150 @@ img {
 	z-index: 1;
 }
 
-.dino-ground {
+.dino-ground-line {
 	position: absolute;
-	height: 0.12rem;
-	background: #2b2b2b;
+	left: 0;
+	right: 0;
+	bottom: 1.05rem;
+	height: 0.08rem;
+	background: #4f4f4f;
+	opacity: 0.75;
 }
 
-.dino-ground-left {
-	left: 0.25rem;
-	bottom: 0.7rem;
-	width: 1.2rem;
+.dino-ground-line::before,
+.dino-ground-line::after {
+	content: '';
+	position: absolute;
+	top: -0.08rem;
+	height: 0.08rem;
+	background: var(--background);
 }
 
-.dino-ground-mid {
-	right: 0.35rem;
-	bottom: 0.65rem;
+.dino-ground-line::before {
+	left: 12%;
+	width: 2rem;
+}
+
+.dino-ground-line::after {
+	right: 18%;
+	width: 1.3rem;
+}
+
+.dino-cloud {
+	position: absolute;
 	width: 2.2rem;
+	height: 0.5rem;
+	border: 0.08rem solid #d9d9d9;
+	border-top: 0;
+	opacity: 0.7;
 }
 
-.dino-ground-dot {
-	right: 0.1rem;
-	bottom: 0.25rem;
-	width: 0.18rem;
-	height: 0.18rem;
+.dino-cloud::before,
+.dino-cloud::after {
+	content: '';
+	position: absolute;
+	bottom: 0.35rem;
+	border: 0.08rem solid #d9d9d9;
+	border-bottom: 0;
+	background: var(--background);
+}
+
+.dino-cloud::before {
+	left: 0.35rem;
+	width: 0.7rem;
+	height: 0.45rem;
+}
+
+.dino-cloud::after {
+	left: 0.95rem;
+	width: 0.85rem;
+	height: 0.6rem;
+}
+
+.dino-cloud-one {
+	left: 8%;
+	top: 1.05rem;
+}
+
+.dino-cloud-two {
+	left: 43%;
+	top: 0.85rem;
+	transform: scale(0.85);
+}
+
+.dino-cloud-three {
+	right: 12%;
+	top: 1.7rem;
+	transform: scale(0.72);
+}
+
+.dino-cactus {
+	position: absolute;
+	bottom: 1.05rem;
+	width: 0.28rem;
+	background: #4f4f4f;
+}
+
+.dino-cactus::before,
+.dino-cactus::after {
+	content: '';
+	position: absolute;
+	width: 0.28rem;
+	background: #4f4f4f;
+}
+
+.dino-cactus-tall {
+	left: 58%;
+	height: 3rem;
+}
+
+.dino-cactus-tall::before {
+	left: -0.52rem;
+	top: 1.15rem;
+	height: 1.15rem;
+}
+
+.dino-cactus-tall::after {
+	right: -0.52rem;
+	top: 0.75rem;
+	height: 1.35rem;
+}
+
+.dino-cactus-small {
+	right: 24%;
+	height: 1.7rem;
+}
+
+.dino-cactus-small::before {
+	left: -0.42rem;
+	top: 0.65rem;
+	height: 0.8rem;
+}
+
+.dino-cactus-small::after {
+	right: -0.42rem;
+	top: 0.45rem;
+	height: 0.9rem;
+}
+
+.dino-pebble {
+	position: absolute;
+	bottom: 0.75rem;
+	width: 0.16rem;
+	height: 0.16rem;
+	background: #4f4f4f;
+}
+
+.dino-pebble-one {
+	left: 28%;
+}
+
+.dino-pebble-two {
+	left: 66%;
+}
+
+.dino-pebble-three {
+	right: 8%;
 }
 .home-hero p {
 	margin: 1.5rem auto 0;
@@ -552,4 +685,5 @@ img {
 .empty-state p {
 	margin: 0;
 }
+
 
