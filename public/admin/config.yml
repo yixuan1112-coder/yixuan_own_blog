@@ -1,6 +1,6 @@
-# Yixuan's website — Decap CMS 后台
-# 线上地址：https://yixuan-own-blog.vercel.app/admin/
-# OAuth 配置见项目根目录 ADMIN_SETUP.md
+﻿# Yixuan's website - Decap CMS admin
+# Online admin: https://yixuan-own-blog.vercel.app/admin/
+# OAuth setup: see ADMIN_SETUP.md in the project root.
 
 backend:
   name: github
@@ -21,20 +21,29 @@ slug:
 
 collections:
   - name: blog
-    label: 博客文章
-    label_singular: 文章
+    label: Blog posts
+    label_singular: Post
     folder: src/content/blog
     create: true
     slug: '{{slug}}'
     extension: md
     format: frontmatter
     fields:
-      - { label: 标题, name: title, widget: string }
-      - { label: 摘要, name: description, widget: string, hint: '用于博客列表与 SEO' }
-      - { label: 发布日期, name: pubDate, widget: datetime, format: 'MMM DD YYYY', date_format: 'MMM DD YYYY', time_format: false }
-      - { label: 更新日期, name: updatedDate, widget: datetime, required: false, format: 'MMM DD YYYY', date_format: 'MMM DD YYYY', time_format: false }
-      - { label: 封面图, name: heroImage, widget: image, required: false }
-      - label: 正文
+      - { label: Title, name: title, widget: string }
+      - { label: Summary, name: description, widget: string, hint: 'Shown in blog lists and SEO metadata.' }
+      - label: Type
+        name: type
+        widget: select
+        default: thoughts
+        options:
+          - { label: Resources, value: resources }
+          - { label: Knowledge, value: knowledge }
+          - { label: Thoughts, value: thoughts }
+        hint: 'Choose where this post appears: Resources, Knowledge, or Thoughts.'
+      - { label: Publish date, name: pubDate, widget: datetime, format: 'MMM DD YYYY', date_format: 'MMM DD YYYY', time_format: false }
+      - { label: Updated date, name: updatedDate, widget: datetime, required: false, format: 'MMM DD YYYY', date_format: 'MMM DD YYYY', time_format: false }
+      - { label: Cover image, name: heroImage, widget: image, required: false }
+      - label: Body
         name: body
         widget: markdown
-        hint: '视频可粘贴 YouTube / Bilibili 的 iframe 嵌入代码'
+        hint: 'You can paste iframe embed code for videos when needed.'

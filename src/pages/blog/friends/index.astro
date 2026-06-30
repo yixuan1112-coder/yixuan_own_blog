@@ -4,24 +4,18 @@ import BlogNav from '../../../components/BlogNav.astro';
 import Footer from '../../../components/Footer.astro';
 import Header from '../../../components/Header.astro';
 import { SITE_TITLE } from '../../../consts';
-
-const friends = [
-	{ name: 'GitHub', href: 'https://github.com/yixuan1112-coder', note: 'My code and project space.' },
-	{ name: 'LinkedIn', href: 'https://www.linkedin.com/in/yixuan-xie-b50932382', note: 'Professional background and updates.' },
-	{ name: 'Instagram', href: 'https://www.instagram.com/xuan291547', note: 'Personal updates.' },
-];
 ---
 
 <!doctype html>
 <html lang="en">
-	<head><BaseHead title={`Friends - ${SITE_TITLE}`} description="Links connected to Yixuan." /></head>
+	<head><BaseHead title={`Friends - ${SITE_TITLE}`} description="Friend blog links." /></head>
 	<body>
 		<div class="site-frame">
 			<Header />
 			<main class="page-main"><div class="content-page">
 				<BlogNav />
-				<header class="page-heading"><h1 class="pixel-title page-title">Friends</h1><p>A small link page, using real links from this site.</p></header>
-				<ul class="simple-list link-list">{friends.map((friend) => <li><a href={friend.href} target="_blank" rel="noreferrer">{friend.name}</a><p>{friend.note}</p></li>)}</ul>
+				<header class="page-heading"><h1 class="pixel-title page-title">Friends</h1><p>Friend blog links will be added here later.</p></header>
+				<div class="empty-state"><p>No friends yet.</p></div>
 			</div></main>
 			<Footer />
 		</div>

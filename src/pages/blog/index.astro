@@ -7,9 +7,10 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const blogTypes = new Set(['resources', 'knowledge', 'thoughts']);
+const posts = (await getCollection('blog'))
+	.filter((post) => blogTypes.has(post.data.type))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const grouped = posts.reduce<Record<string, typeof posts>>((acc, post) => {
 	const year = post.data.pubDate.getFullYear().toString();
 	(acc[year] ??= []).push(post);
@@ -21,7 +22,7 @@ const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Blog - ${SITE_TITLE}`} description="All blog posts." />
+		<BaseHead title={`Blog - ${SITE_TITLE}`} description="All Resources, Knowledge, and Thoughts posts." />
 	</head>
 	<body>
 		<div class="site-frame">
@@ -31,27 +32,33 @@ const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 					<BlogNav />
 					<header class="page-heading">
 						<h1 class="pixel-title page-title">Blog</h1>
-						<p>{posts.length} posts</p>
+						<p>{posts.length} posts from resources, knowledge, and thoughts.</p>
 					</header>
 
-					{years.map((year) => (
-						<section class="archive-year">
-							<h2>{year}</h2>
-							<ul>
-								{grouped[year].map((post) => (
-									<li>
-										<a href={`/blog/${post.id}/`}>
-											<span>
-												<strong>{post.data.title}</strong>
-												<small>{post.data.description}</small>
-											</span>
-											<time datetime={post.data.pubDate.toISOString()}><FormattedDate date={post.data.pubDate} /></time>
-										</a>
-									</li>
-								))}
-							</ul>
-						</section>
-					))}
+					{posts.length === 0 ? (
+						<div class="empty-state">
+							<p>No typed blog posts yet.</p>
+						</div>
+					) : (
+						years.map((year) => (
+							<section class="archive-year">
+								<h2>{year}</h2>
+								<ul>
+									{grouped[year].map((post) => (
+										<li>
+											<a href={`/blog/${post.id}/`}>
+												<span>
+													<strong>{post.data.title}</strong>
+													<small>{post.data.description}</small>
+												</span>
+												<time datetime={post.data.pubDate.toISOString()}><FormattedDate date={post.data.pubDate} /></time>
+											</a>
+										</li>
+									))}
+								</ul>
+							</section>
+						))
+					)}
 				</div>
 			</main>
 			<Footer />

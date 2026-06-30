@@ -8,22 +8,26 @@ import Header from '../../../components/Header.astro';
 import { SITE_TITLE } from '../../../consts';
 
 const posts = (await getCollection('blog'))
-	.filter((post) => /reflect|thought|daily/i.test(`${post.id} ${post.data.title} ${post.data.description}`))
+	.filter((post) => post.data.type === 'thoughts')
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <!doctype html>
 <html lang="en">
-	<head><BaseHead title={`Some Thoughts - ${SITE_TITLE}`} description="Short notes and reflections." /></head>
+	<head><BaseHead title={`Some Thoughts - ${SITE_TITLE}`} description="Thought posts from the blog." /></head>
 	<body>
 		<div class="site-frame">
 			<Header />
 			<main class="page-main"><div class="content-page">
 				<BlogNav />
-				<header class="page-heading"><h1 class="pixel-title page-title">Some Thoughts</h1><p>Reflection posts from the existing blog.</p></header>
-				<ul class="thought-list">
-					{posts.map((post) => <li><time datetime={post.data.pubDate.toISOString()}><FormattedDate date={post.data.pubDate} /></time><a href={`/blog/${post.id}/`}>{post.data.title}</a><p>{post.data.description}</p></li>)}
-				</ul>
+				<header class="page-heading"><h1 class="pixel-title page-title">Some Thoughts</h1><p>Posts marked as thoughts.</p></header>
+				{posts.length === 0 ? (
+					<div class="empty-state"><p>No thoughts yet.</p></div>
+				) : (
+					<ul class="thought-list">
+						{posts.map((post) => <li><time datetime={post.data.pubDate.toISOString()}><FormattedDate date={post.data.pubDate} /></time><a href={`/blog/${post.id}/`}>{post.data.title}</a><p>{post.data.description}</p></li>)}
+					</ul>
+				)}
 			</div></main>
 			<Footer />
 		</div>
