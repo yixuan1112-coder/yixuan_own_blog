@@ -35,6 +35,7 @@ collections:
         name: type
         widget: select
         default: thoughts
+        required: false
         options:
           - { label: Resources, value: resources }
           - { label: Knowledge, value: knowledge }
@@ -47,3 +48,4 @@ collections:
         name: body
         widget: markdown
         hint: 'You can paste iframe embed code for videos when needed.'
+
