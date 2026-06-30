@@ -1,4 +1,4 @@
-﻿:root {
+:root {
 	--font-serif: 'Source Serif 4', 'Noto Serif SC', Georgia, serif;
 	--font-sans: Inter, 'Noto Sans SC', system-ui, sans-serif;
 	--font-pixel: Silkscreen, VT323, ui-monospace, monospace;
@@ -184,10 +184,10 @@ img {
 .dino-avatar {
 	--pixel: 0.42rem;
 	position: absolute;
-	left: clamp(1rem, 16vw, 9rem);
-	bottom: 1.15rem;
-	width: 5.3rem;
-	height: 5.3rem;
+	left: clamp(1rem, 15vw, 8.5rem);
+	bottom: 1.05rem;
+	width: 5.7rem;
+	height: 5.9rem;
 	background: transparent;
 }
 
@@ -201,8 +201,8 @@ img {
 }
 
 .dino-pixel {
-	background: #4f4f4f;
-	box-shadow: 0 0 0 0.01rem #4f4f4f;
+	background: #4b4b4b;
+	box-shadow: 0 0 0 0.01rem #4b4b4b;
 }
 
 .dino-eye {
@@ -216,8 +216,8 @@ img {
 	right: 0;
 	bottom: 1.05rem;
 	height: 0.08rem;
-	background: #4f4f4f;
-	opacity: 0.75;
+	background-image: repeating-linear-gradient(90deg, #4b4b4b 0 1.15rem, transparent 1.15rem 1.95rem);
+	opacity: 0.82;
 }
 
 .dino-ground-line::before,
@@ -241,33 +241,33 @@ img {
 
 .dino-cloud {
 	position: absolute;
-	width: 2.2rem;
-	height: 0.5rem;
-	border: 0.08rem solid #d9d9d9;
+	width: 2.45rem;
+	height: 0.6rem;
+	border: 0.08rem solid #b8b8b8;
 	border-top: 0;
-	opacity: 0.7;
+	opacity: 0.92;
 }
 
 .dino-cloud::before,
 .dino-cloud::after {
 	content: '';
 	position: absolute;
-	bottom: 0.35rem;
-	border: 0.08rem solid #d9d9d9;
+	bottom: 0.45rem;
+	border: 0.08rem solid #b8b8b8;
 	border-bottom: 0;
 	background: var(--background);
 }
 
 .dino-cloud::before {
-	left: 0.35rem;
-	width: 0.7rem;
-	height: 0.45rem;
+	left: 0.32rem;
+	width: 0.72rem;
+	height: 0.48rem;
 }
 
 .dino-cloud::after {
-	left: 0.95rem;
-	width: 0.85rem;
-	height: 0.6rem;
+	left: 0.98rem;
+	width: 0.96rem;
+	height: 0.68rem;
 }
 
 .dino-cloud-one {
@@ -276,7 +276,7 @@ img {
 }
 
 .dino-cloud-two {
-	left: 43%;
+	left: 40%;
 	top: 0.85rem;
 	transform: scale(0.85);
 }
@@ -285,6 +285,55 @@ img {
 	right: 12%;
 	top: 1.7rem;
 	transform: scale(0.72);
+}
+
+.dino-bird {
+	position: absolute;
+	width: 1.8rem;
+	height: 0.85rem;
+}
+
+.dino-bird::before,
+.dino-bird::after {
+	content: '';
+	position: absolute;
+	top: 0.35rem;
+	width: 0.78rem;
+	height: 0.09rem;
+	background: #4b4b4b;
+}
+
+.dino-bird::before {
+	left: 0.08rem;
+	transform: rotate(28deg);
+	transform-origin: right center;
+}
+
+.dino-bird::after {
+	right: 0.08rem;
+	transform: rotate(-28deg);
+	transform-origin: left center;
+}
+
+.dino-bird span {
+	position: absolute;
+	left: 0.82rem;
+	top: 0.33rem;
+	width: 0.16rem;
+	height: 0.16rem;
+	background: #4b4b4b;
+}
+
+.dino-bird-one {
+	left: 29%;
+	top: 2.55rem;
+}
+
+.dino-bird-two {
+	right: 29%;
+	top: 2.35rem;
+	transform: scale(0.78);
+	opacity: 0.8;
 }
 
 .dino-cactus {
