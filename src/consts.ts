@@ -11,7 +11,8 @@ export const GISCUS = {
 	repoId: import.meta.env.PUBLIC_GISCUS_REPO_ID ?? '',
 	category: 'General',
 	categoryId: import.meta.env.PUBLIC_GISCUS_CATEGORY_ID ?? '',
-	mapping: 'pathname',
+	mapping: 'specific',
+	term: '/blog/comments/',
 	theme: 'preferred_color_scheme',
 	lang: 'zh-CN',
 };

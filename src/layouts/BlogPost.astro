@@ -11,6 +11,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
 };
 
 const { title, description, pubDate, updatedDate, showComments = false } = Astro.props;
+const isCommentGated = showComments;
 ---
 
 <!doctype html>
@@ -22,7 +23,7 @@ const { title, description, pubDate, updatedDate, showComments = false } = Astro
 		<div class="site-frame">
 			<Header />
 			<main class="page-main">
-				<article class="post-page">
+				<article class="post-page" data-comment-gated={isCommentGated ? 'true' : undefined}>
 					<header class="post-header">
 						<h1 class="pixel-title post-title">{title}</h1>
 						<div class="post-meta">
@@ -31,7 +32,17 @@ const { title, description, pubDate, updatedDate, showComments = false } = Astro
 						</div>
 					</header>
 
-					<div class="prose-article">
+					{isCommentGated && (
+						<section class="comment-gate" aria-labelledby="comment-gate-title">
+							<h2 id="comment-gate-title">Comment to Unlock</h2>
+							<p>Leave a quick comment below, then unlock this post.</p>
+							<button class="comment-gate-button" type="button" data-unlock-post>
+								I commented, unlock this post
+							</button>
+						</section>
+					)}
+
+					<div class="prose-article post-content">
 						<slot />
 					</div>
 
@@ -44,5 +55,33 @@ const { title, description, pubDate, updatedDate, showComments = false } = Astro
 			</main>
 			<Footer />
 		</div>
+		{isCommentGated && (
+			<script is:inline>
+				(() => {
+					const post = document.querySelector('[data-comment-gated="true"]');
+					if (!post) return;
+
+					const key = `comment-unlocked:${window.location.pathname}`;
+					const unlock = () => {
+						post.dataset.unlocked = 'true';
+						try {
+							window.localStorage.setItem(key, 'true');
+						} catch {
+							/* localStorage can be unavailable in private browsing. */
+						}
+					};
+
+					try {
+						if (window.localStorage.getItem(key) === 'true') {
+							unlock();
+						}
+					} catch {
+						/* Keep the post locked if storage cannot be read. */
+					}
+
+					post.querySelector('[data-unlock-post]')?.addEventListener('click', unlock);
+				})();
+			</script>
+		)}
 	</body>
 </html>
