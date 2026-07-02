@@ -13,6 +13,6 @@ updatedDate: Jul 01 2026
 
 3：websecurityfordevelopers
 
-\[下载 Web Security for Developers](/uploads/websecurityfordevelopers.pdf)
+[下载 Web Security for Developers](/uploads/websecurityfordevelopers.pdf)
 
 想要free的pdf直接Email联系我~
