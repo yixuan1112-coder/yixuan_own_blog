@@ -9,6 +9,8 @@ updatedDate: Jul 01 2026
 
 1：pragmaticmpc
 
+src/assets/blog/pragmaticmpc.pdf
+
 2：seriouscrytography
 
 3：websecurityfordevelopers
