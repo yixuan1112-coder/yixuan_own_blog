@@ -9,8 +9,8 @@ backend:
   base_url: https://yixuan-own-blog.vercel.app
   auth_endpoint: api/auth
 
-media_folder: src/assets/blog
-public_folder: ../../assets/blog
+media_folder: public/uploads
+public_folder: /uploads
 
 site_url: https://yixuan-own-blog.vercel.app
 display_url: https://yixuan-own-blog.vercel.app
