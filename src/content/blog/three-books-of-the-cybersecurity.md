@@ -13,6 +13,8 @@ src/assets/blog/pragmaticmpc.pdf
 
 2：seriouscrytography
 
+src/assets/blog/seriouscrytography.pdf
+
 3：websecurityfordevelopers
 
 想要free的pdf直接Email联系我~
