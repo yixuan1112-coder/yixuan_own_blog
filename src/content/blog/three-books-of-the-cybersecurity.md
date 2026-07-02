@@ -17,4 +17,6 @@ src/assets/blog/seriouscrytography.pdf
 
 3：websecurityfordevelopers
 
+src/assets/blog/websecurityfordevelopers.pdf([src/assets/blog/websecurityfordevelopers.pdf)](src/assets/blog/websecurityfordevelopers.pdf)
+
 想要free的pdf直接Email联系我~
