@@ -9,14 +9,8 @@ updatedDate: Jul 01 2026
 
 1：pragmaticmpc
 
-src/assets/blog/pragmaticmpc.pdf
-
 2：seriouscrytography
 
-src/assets/blog/seriouscrytography.pdf
-
 3：websecurityfordevelopers
-
-src/assets/blog/websecurityfordevelopers.pdf([src/assets/blog/websecurityfordevelopers.pdf)](src/assets/blog/websecurityfordevelopers.pdf)
 
 想要free的pdf直接Email联系我~
