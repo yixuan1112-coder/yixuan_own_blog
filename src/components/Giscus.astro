@@ -1,11 +1,18 @@
 ---
 import { GISCUS } from '../consts';
 
+type Props = {
+	title?: string;
+	mapping?: string;
+	term?: string;
+};
+
+const { title = 'Discussion', mapping = GISCUS.mapping, term } = Astro.props;
 const isConfigured = Boolean(GISCUS.repoId && GISCUS.categoryId);
 ---
 
 <section class="giscus-wrapper" aria-labelledby="comments-title">
-	<h2 id="comments-title">Discussion</h2>
+	<h2 id="comments-title">{title}</h2>
 	{
 		isConfigured ? (
 			<script
@@ -15,8 +22,8 @@ const isConfigured = Boolean(GISCUS.repoId && GISCUS.categoryId);
 				data-repo-id={GISCUS.repoId}
 				data-category={GISCUS.category}
 				data-category-id={GISCUS.categoryId}
-				data-mapping={GISCUS.mapping}
-				data-term={GISCUS.term}
+				data-mapping={mapping}
+				data-term={term}
 				data-strict="0"
 				data-reactions-enabled="1"
 				data-emit-metadata="0"

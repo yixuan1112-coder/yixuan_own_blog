@@ -3,7 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Giscus from '../components/Giscus.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import { GISCUS, SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
@@ -20,7 +20,7 @@ import { SITE_TITLE } from '../consts';
 						<h1 class="pixel-title page-title">Comments</h1>
 						<p>Leave a message here with your GitHub account.</p>
 					</header>
-					<Giscus />
+					<Giscus title="Comments" mapping={GISCUS.sharedMapping} term={GISCUS.sharedTerm} />
 				</div>
 			</main>
 			<Footer />
