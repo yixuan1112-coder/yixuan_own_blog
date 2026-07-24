@@ -181,6 +181,36 @@ img {
 	transform: translateX(-50%);
 	overflow: hidden;
 	image-rendering: pixelated;
+	cursor: pointer;
+	touch-action: manipulation;
+	user-select: none;
+	outline: none;
+}
+
+.dino-scene:focus-visible {
+	outline: 2px dashed var(--accent-blue);
+	outline-offset: 0.35rem;
+}
+
+.dino-game-hud {
+	position: absolute;
+	z-index: 4;
+	top: 0;
+	left: 0.35rem;
+	right: 0.35rem;
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	font-family: var(--font-pixel);
+	font-size: clamp(0.55rem, 1.7vw, 0.68rem);
+	letter-spacing: 0.04em;
+	color: var(--muted-foreground);
+	pointer-events: none;
+}
+
+.dino-game-hud strong {
+	font: inherit;
+	color: var(--foreground);
 }
 
 .pixel-avatar {
@@ -195,6 +225,8 @@ img {
 	width: 5.7rem;
 	height: 5.9rem;
 	background: transparent;
+	z-index: 2;
+	will-change: transform;
 }
 
 .dino-pixel,
@@ -347,6 +379,53 @@ img {
 	bottom: 1.05rem;
 	width: 0.28rem;
 	background: #4f4f4f;
+	z-index: 2;
+}
+
+.dino-scene[data-game-ready='true'] .dino-cactus {
+	left: 0;
+	right: auto;
+	will-change: transform;
+}
+
+.dino-scene.game-running .dino-ground-line {
+	animation: dino-ground-move 0.42s linear infinite;
+}
+
+.dino-scene.game-running .dino-cloud {
+	animation: dino-cloud-drift 6s linear infinite;
+}
+
+.dino-scene.game-running .dino-bird {
+	animation: dino-bird-flap 0.45s steps(2, end) infinite;
+}
+
+.dino-scene.game-over {
+	animation: dino-hit 0.18s steps(2, end) 2;
+}
+
+@keyframes dino-ground-move {
+	to {
+		background-position-x: -1.95rem;
+	}
+}
+
+@keyframes dino-cloud-drift {
+	50% {
+		margin-left: -0.8rem;
+	}
+}
+
+@keyframes dino-bird-flap {
+	50% {
+		margin-top: 0.16rem;
+	}
+}
+
+@keyframes dino-hit {
+	50% {
+		opacity: 0.55;
+	}
 }
 
 .dino-cactus::before,

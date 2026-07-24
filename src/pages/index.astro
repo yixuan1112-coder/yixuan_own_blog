@@ -35,7 +35,17 @@ const recentPosts = posts.slice(0, 8);
 							<a href="https://www.instagram.com/xuan291547" target="_blank" rel="noreferrer">instagram</a>
 						</nav>
 
-						<div class="dino-scene" aria-hidden="true">
+						<div
+							class="dino-scene"
+							data-dino-game
+							role="application"
+							aria-label="Pixel dinosaur game. Press Space, Arrow Up, or tap to jump."
+							tabindex="0"
+						>
+							<div class="dino-game-hud" aria-live="polite">
+								<span data-dino-message>SPACE / TAP TO START</span>
+								<span>SCORE <strong data-dino-score>00000</strong></span>
+							</div>
 							<span class="dino-cloud dino-cloud-one"></span>
 							<span class="dino-cloud dino-cloud-two"></span>
 							<span class="dino-cloud dino-cloud-three"></span>
@@ -98,6 +108,153 @@ const recentPosts = posts.slice(0, 8);
 			</main>
 			<Footer />
 		</div>
+		<script>
+			const scene = document.querySelector('[data-dino-game]');
+
+			if (scene instanceof HTMLElement) {
+				const dino = scene.querySelector('.dino-avatar');
+				const obstacles = [...scene.querySelectorAll('.dino-cactus')];
+				const scoreElement = scene.querySelector('[data-dino-score]');
+				const messageElement = scene.querySelector('[data-dino-message]');
+
+				if (
+					dino instanceof HTMLElement &&
+					scoreElement instanceof HTMLElement &&
+					messageElement instanceof HTMLElement &&
+					obstacles.every((obstacle) => obstacle instanceof HTMLElement)
+				) {
+					let state = 'idle';
+					let jumpHeight = 0;
+					let velocity = 0;
+					let score = 0;
+					let speed = 285;
+					let previousTime = 0;
+					let animationFrame = 0;
+					let obstaclePositions = [];
+
+					const formatScore = (value) => Math.floor(value).toString().padStart(5, '0');
+
+					const placeObstacles = () => {
+						const width = scene.clientWidth;
+						obstaclePositions = [width + 100, width + 460];
+						obstacles.forEach((obstacle, index) => {
+							obstacle.style.transform = `translateX(${obstaclePositions[index]}px)`;
+						});
+					};
+
+					const setMessage = (message) => {
+						messageElement.textContent = message;
+					};
+
+					const reset = () => {
+						cancelAnimationFrame(animationFrame);
+						state = 'idle';
+						jumpHeight = 0;
+						velocity = 0;
+						score = 0;
+						speed = 285;
+						previousTime = 0;
+						dino.style.transform = '';
+						scoreElement.textContent = '00000';
+						scene.classList.remove('game-running', 'game-over');
+						placeObstacles();
+						setMessage('SPACE / TAP TO START');
+					};
+
+					const overlaps = (obstacle) => {
+						const dinoRect = dino.getBoundingClientRect();
+						const obstacleRect = obstacle.getBoundingClientRect();
+						const dinoPadding = 9;
+						const obstaclePadding = 3;
+
+						return (
+							dinoRect.right - dinoPadding > obstacleRect.left - obstaclePadding &&
+							dinoRect.left + dinoPadding < obstacleRect.right + obstaclePadding &&
+							dinoRect.bottom - 5 > obstacleRect.top + obstaclePadding &&
+							dinoRect.top + 7 < obstacleRect.bottom
+						);
+					};
+
+					const finish = () => {
+						state = 'over';
+						scene.classList.remove('game-running');
+						scene.classList.add('game-over');
+						setMessage('GAME OVER — SPACE / TAP TO RETRY');
+					};
+
+					const update = (time) => {
+						if (state !== 'running') return;
+						const delta = Math.min((time - previousTime) / 1000 || 0, 0.034);
+						previousTime = time;
+
+						velocity -= 1850 * delta;
+						jumpHeight = Math.max(0, jumpHeight + velocity * delta);
+						if (jumpHeight === 0 && velocity < 0) velocity = 0;
+						dino.style.transform = `translateY(${-jumpHeight}px)`;
+
+						speed = Math.min(520, 285 + score * 0.45);
+						score += delta * 10;
+						scoreElement.textContent = formatScore(score);
+
+						obstaclePositions = obstaclePositions.map((position, index) => {
+							let nextPosition = position - speed * delta;
+							if (nextPosition < -45) {
+								const furthest = Math.max(...obstaclePositions);
+								nextPosition = Math.max(scene.clientWidth + 80, furthest + 260 + Math.random() * 240);
+							}
+							obstacles[index].style.transform = `translateX(${nextPosition}px)`;
+							return nextPosition;
+						});
+
+						if (obstacles.some(overlaps)) {
+							finish();
+							return;
+						}
+
+						animationFrame = requestAnimationFrame(update);
+					};
+
+					const jump = () => {
+						if (state === 'over') {
+							reset();
+						}
+						if (state === 'idle') {
+							state = 'running';
+							scene.classList.add('game-running');
+							setMessage('JUMP!');
+							previousTime = performance.now();
+							animationFrame = requestAnimationFrame(update);
+						}
+						if (jumpHeight <= 1) velocity = 690;
+					};
+
+					scene.addEventListener('pointerdown', (event) => {
+						event.preventDefault();
+						scene.focus({ preventScroll: true });
+						jump();
+					});
+
+					window.addEventListener('keydown', (event) => {
+						if (event.code !== 'Space' && event.code !== 'ArrowUp') return;
+						const target = event.target;
+						if (
+							target instanceof HTMLInputElement ||
+							target instanceof HTMLTextAreaElement ||
+							target instanceof HTMLSelectElement
+						) return;
+						event.preventDefault();
+						jump();
+					});
+
+					window.addEventListener('resize', () => {
+						if (state === 'idle') placeObstacles();
+					});
+
+					scene.dataset.gameReady = 'true';
+					reset();
+				}
+			}
+		</script>
 	</body>
 </html>
 
