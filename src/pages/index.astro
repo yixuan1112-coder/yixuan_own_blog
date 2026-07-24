@@ -150,11 +150,11 @@ const recentPosts = posts.slice(0, 8);
 							const nextIsCliff = nextObstacle?.classList.contains('dino-cliff');
 							const currentIsBird = obstacle.classList.contains('dino-bird');
 							const nextIsBird = nextObstacle?.classList.contains('dino-bird');
-							let baseGap = 320;
-							if (currentIsCliff && nextIsCliff) baseGap = 760;
-							else if (currentIsCliff || nextIsCliff) baseGap = 540;
-							else if (currentIsBird && nextIsBird) baseGap = 540;
-							else if (currentIsBird || nextIsBird) baseGap = 380;
+							let baseGap = 280;
+							if (currentIsCliff && nextIsCliff) baseGap = 560;
+							else if (currentIsCliff || nextIsCliff) baseGap = 420;
+							else if (currentIsBird && nextIsBird) baseGap = 380;
+							else if (currentIsBird || nextIsBird) baseGap = 320;
 							nextPosition += baseGap + ((index * 83) % 150);
 							return position;
 						});
@@ -242,11 +242,11 @@ const recentPosts = posts.slice(0, 8);
 								const furthestIsCliff = furthestObstacle?.classList.contains('dino-cliff');
 								const currentIsBird = currentObstacle.classList.contains('dino-bird');
 								const furthestIsBird = furthestObstacle?.classList.contains('dino-bird');
-								let minimumGap = 320;
-								if (currentIsCliff && furthestIsCliff) minimumGap = 760;
-								else if (currentIsCliff || furthestIsCliff) minimumGap = 540;
-								else if (currentIsBird && furthestIsBird) minimumGap = 540;
-								else if (currentIsBird || furthestIsBird) minimumGap = 380;
+								let minimumGap = 280;
+								if (currentIsCliff && furthestIsCliff) minimumGap = 560;
+								else if (currentIsCliff || furthestIsCliff) minimumGap = 420;
+								else if (currentIsBird && furthestIsBird) minimumGap = 380;
+								else if (currentIsBird || furthestIsBird) minimumGap = 320;
 								nextPosition = Math.max(
 									scene.clientWidth + 100,
 									furthest + minimumGap + Math.random() * 180,
