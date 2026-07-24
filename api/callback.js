@@ -1,6 +1,16 @@
 /**
  * Decap CMS — GitHub OAuth callback (Vercel serverless)
  */
+import {
+	clearCookie,
+	parseCookies,
+	seal,
+	setCookie,
+	unseal,
+	SESSION_COOKIE,
+	STATE_COOKIE,
+} from './_comment-session.js';
+
 export default async function handler(req, res) {
 	const { code, error, error_description } = req.query;
 
@@ -45,6 +55,43 @@ export default async function handler(req, res) {
 	}
 
 	const token = data.access_token;
+	const commentFlow = getCommentFlow(req);
+	if (req.query.state && !commentFlow) {
+		res.status(400).send('Invalid or expired OAuth state. Please start the sign-in again.');
+		return;
+	}
+	if (commentFlow) {
+		const profileResponse = await fetch('https://api.github.com/user', {
+			headers: {
+				Authorization: `Bearer ${token}`,
+				Accept: 'application/vnd.github+json',
+				'User-Agent': 'yixuan-own-blog',
+			},
+		});
+		const profile = await profileResponse.json();
+		if (!profileResponse.ok || !profile.login) {
+			res.status(502).send('Could not read the GitHub account.');
+			return;
+		}
+
+		setCookie(
+			res,
+			SESSION_COOKIE,
+			seal({
+				token,
+				login: profile.login,
+				expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
+			}),
+			7 * 24 * 60 * 60,
+		);
+		// Preserve both Set-Cookie values when clearing the temporary OAuth state.
+		const sessionCookie = res.getHeader('Set-Cookie');
+		clearCookie(res, STATE_COOKIE);
+		res.setHeader('Set-Cookie', [sessionCookie, res.getHeader('Set-Cookie')]);
+		res.redirect(302, commentFlow.returnTo);
+		return;
+	}
+
 	const safeToken = JSON.stringify(token);
 
 	res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -80,6 +127,13 @@ export default async function handler(req, res) {
   }
 })();
 </script></body></html>`);
+}
+
+function getCommentFlow(req) {
+	if (!req.query.state) return null;
+	const payload = unseal(parseCookies(req)[STATE_COOKIE]);
+	if (!payload || payload.nonce !== req.query.state) return null;
+	return payload;
 }
 
 function getSiteUrl() {

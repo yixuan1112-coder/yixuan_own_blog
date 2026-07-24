@@ -722,6 +722,15 @@ img {
 	cursor: pointer;
 }
 
+.comment-gate-button[hidden] {
+	display: none;
+}
+
+.comment-gate-button:disabled {
+	cursor: wait;
+	opacity: 0.65;
+}
+
 .comment-gate-button:hover {
 	border-color: var(--accent-red);
 	color: var(--accent-red);

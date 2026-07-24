@@ -35,9 +35,14 @@ const isCommentGated = showComments;
 					{isCommentGated && (
 						<section class="comment-gate" aria-labelledby="comment-gate-title">
 							<h2 id="comment-gate-title">Comment to Unlock</h2>
-							<p>Leave a quick comment below, then unlock this post.</p>
-							<button class="comment-gate-button" type="button" data-unlock-post>
-								I commented, unlock this post
+							<p data-comment-gate-status>
+								Sign in with GitHub, leave a comment below, then verify it to unlock this post.
+							</p>
+							<a class="comment-gate-button" href={`/api/comment-login?return_to=${encodeURIComponent(Astro.url.pathname)}`} data-github-login>
+								Sign in with GitHub
+							</a>
+							<button class="comment-gate-button" type="button" data-verify-comment hidden>
+								Verify my comment
 							</button>
 						</section>
 					)}
@@ -61,25 +66,69 @@ const isCommentGated = showComments;
 					const post = document.querySelector('[data-comment-gated="true"]');
 					if (!post) return;
 
-					const key = `comment-unlocked:${window.location.pathname}`;
+					const status = post.querySelector('[data-comment-gate-status]');
+					const login = post.querySelector('[data-github-login]');
+					const verify = post.querySelector('[data-verify-comment]');
+					let discussionNumber = null;
+
 					const unlock = () => {
 						post.dataset.unlocked = 'true';
+					};
+
+					const check = async () => {
+						if (!discussionNumber) {
+							status.textContent = 'The GitHub discussion is still loading. Please try again in a moment.';
+							return;
+						}
+						verify.disabled = true;
+						status.textContent = 'Checking your GitHub comment…';
 						try {
-							window.localStorage.setItem(key, 'true');
+							const response = await fetch(`/api/comment-status?discussion=${discussionNumber}`, {
+								credentials: 'same-origin',
+								cache: 'no-store',
+							});
+							const result = await response.json();
+							if (response.status === 401) {
+								login.hidden = false;
+								verify.hidden = true;
+								status.textContent = 'Sign in with GitHub, leave a comment below, then verify it.';
+							} else if (result.commented) {
+								status.textContent = `Comment verified for @${result.login}.`;
+								unlock();
+							} else {
+								login.hidden = true;
+								verify.hidden = false;
+								status.textContent =
+									result.error || `No comment from @${result.login} was found yet. Comment below and try again.`;
+							}
 						} catch {
-							/* localStorage can be unavailable in private browsing. */
+							status.textContent = 'Verification failed temporarily. Please try again.';
+						} finally {
+							verify.disabled = false;
 						}
 					};
 
-					try {
-						if (window.localStorage.getItem(key) === 'true') {
-							unlock();
+					window.addEventListener('message', (event) => {
+						if (event.origin !== 'https://giscus.app' || !event.data?.giscus) return;
+						const discussion = event.data.giscus.discussion;
+						if (discussion?.number) {
+							discussionNumber = discussion.number;
+							check();
 						}
-					} catch {
-						/* Keep the post locked if storage cannot be read. */
-					}
+					});
 
-					post.querySelector('[data-unlock-post]')?.addEventListener('click', unlock);
+					fetch('/api/comment-status', { credentials: 'same-origin', cache: 'no-store' })
+						.then((response) => response.json().then((result) => ({ response, result })))
+						.then(({ response, result }) => {
+							if (response.status !== 401 && result.authenticated) {
+								login.hidden = true;
+								verify.hidden = false;
+								status.textContent = `Signed in as @${result.login}. Loading the discussion…`;
+							}
+						})
+						.catch(() => {});
+
+					verify.addEventListener('click', check);
 				})();
 			</script>
 		)}
