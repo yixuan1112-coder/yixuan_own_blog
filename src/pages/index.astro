@@ -223,7 +223,11 @@ const recentPosts = posts.slice(0, 8);
 						previousTime = time;
 
 						velocity -= 1850 * delta;
-						jumpHeight = Math.min(105, Math.max(0, jumpHeight + velocity * delta));
+						const maximumJumpHeight = 88 + airBoosts * 18;
+						jumpHeight = Math.min(
+							maximumJumpHeight,
+							Math.max(0, jumpHeight + velocity * delta),
+						);
 						if (jumpHeight === 0 && velocity < 0) velocity = 0;
 						renderDino();
 

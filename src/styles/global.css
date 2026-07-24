@@ -176,7 +176,7 @@ img {
 .dino-scene {
 	position: relative;
 	width: min(calc(100vw - 2rem), 58rem);
-	height: 8.5rem;
+	height: 10.5rem;
 	margin: 2rem 50% 0;
 	transform: translateX(-50%);
 	overflow: hidden;
@@ -449,7 +449,7 @@ img {
 
 .dino-cactus-tall {
 	left: 58%;
-	height: 3rem;
+	height: 6.3rem;
 }
 
 .dino-cactus-tall::before {
@@ -497,7 +497,7 @@ img {
 
 .dino-cactus-double {
 	width: 0.72rem;
-	height: 2.15rem;
+	height: 7.4rem;
 	border-left: 0.28rem solid #4f4f4f;
 	border-right: 0.28rem solid #4f4f4f;
 	background: transparent;
