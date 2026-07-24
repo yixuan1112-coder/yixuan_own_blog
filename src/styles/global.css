@@ -449,7 +449,7 @@ img {
 
 .dino-cactus-tall {
 	left: 58%;
-	height: 6.3rem;
+	height: 5.4rem;
 }
 
 .dino-cactus-tall::before {
@@ -497,7 +497,7 @@ img {
 
 .dino-cactus-double {
 	width: 0.72rem;
-	height: 7rem;
+	height: 6.5rem;
 	border-left: 0.28rem solid #4f4f4f;
 	border-right: 0.28rem solid #4f4f4f;
 	background: transparent;
