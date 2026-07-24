@@ -16,3 +16,5 @@ I find the good points of writing blog.
 <https://ibb.co/nNVWpBk3>
 
 who is the angel Talon? HAHAHA)
+
+But actually I know who is Talon now. It's not surprising for me because he studies the major of managing magic.
