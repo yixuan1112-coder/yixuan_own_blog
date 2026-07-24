@@ -76,14 +76,12 @@ const isCommentGated = showComments;
 					};
 
 					const check = async () => {
-						if (!discussionNumber) {
-							status.textContent = 'The GitHub discussion is still loading. Please try again in a moment.';
-							return;
-						}
 						verify.disabled = true;
 						status.textContent = 'Checking your GitHub comment…';
 						try {
-							const response = await fetch(`/api/comment-status?discussion=${discussionNumber}`, {
+							const params = new URLSearchParams({ path: window.location.pathname });
+							if (discussionNumber) params.set('discussion', discussionNumber);
+							const response = await fetch(`/api/comment-status?${params}`, {
 								credentials: 'same-origin',
 								cache: 'no-store',
 							});
