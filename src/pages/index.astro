@@ -49,8 +49,8 @@ const recentPosts = posts.slice(0, 8);
 							<span class="dino-cloud dino-cloud-one"></span>
 							<span class="dino-cloud dino-cloud-two"></span>
 							<span class="dino-cloud dino-cloud-three"></span>
-							<span class="dino-bird dino-bird-one" data-dino-obstacle data-speed="1.08"><span></span></span>
-							<span class="dino-bird dino-bird-two" data-dino-obstacle data-speed="1.16"><span></span></span>
+							<span class="dino-bird dino-bird-one" data-dino-obstacle><span></span></span>
+							<span class="dino-bird dino-bird-two" data-dino-obstacle><span></span></span>
 							<div class="pixel-avatar dino-avatar">
 								{[
 									[7, 0], [8, 0], [9, 0], [10, 0], [11, 0],
@@ -144,7 +144,11 @@ const recentPosts = posts.slice(0, 8);
 						let nextPosition = width + 100;
 						obstaclePositions = obstacles.map((obstacle, index) => {
 							const position = nextPosition;
-							const baseGap = obstacle.classList.contains('dino-cliff') ? 390 : 285;
+							const nextObstacle = obstacles[index + 1];
+							const needsCliffSpace =
+								obstacle.classList.contains('dino-cliff') ||
+								nextObstacle?.classList.contains('dino-cliff');
+							const baseGap = needsCliffSpace ? 470 : 300;
 							nextPosition += baseGap + ((index * 83) % 150);
 							return position;
 						});
@@ -221,15 +225,17 @@ const recentPosts = posts.slice(0, 8);
 						scoreElement.textContent = formatScore(score);
 
 						obstaclePositions = obstaclePositions.map((position, index) => {
-							const speedMultiplier = Number(obstacles[index].dataset.speed || 1);
-							let nextPosition = position - speed * speedMultiplier * delta;
+							let nextPosition = position - speed * delta;
 							if (nextPosition < -45) {
 								const furthest = Math.max(...obstaclePositions);
-								const isCliff = obstacles[index].classList.contains('dino-cliff');
-								const minimumGap = isCliff ? 390 : 270;
+								const furthestIndex = obstaclePositions.indexOf(furthest);
+								const touchesCliff =
+									obstacles[index].classList.contains('dino-cliff') ||
+									obstacles[furthestIndex]?.classList.contains('dino-cliff');
+								const minimumGap = touchesCliff ? 470 : 300;
 								nextPosition = Math.max(
 									scene.clientWidth + 100,
-									furthest + minimumGap + Math.random() * 210,
+									furthest + minimumGap + Math.random() * 180,
 								);
 							}
 							obstacles[index].style.transform = `translateX(${nextPosition}px)`;
