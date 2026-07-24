@@ -364,12 +364,12 @@ img {
 
 .dino-bird-one {
 	left: 29%;
-	top: 2.55rem;
+	bottom: 3.15rem;
 }
 
 .dino-bird-two {
 	right: 29%;
-	top: 2.35rem;
+	bottom: 4.55rem;
 	transform: scale(0.78);
 	opacity: 0.8;
 }
@@ -382,10 +382,16 @@ img {
 	z-index: 2;
 }
 
-.dino-scene[data-game-ready='true'] .dino-cactus {
+.dino-scene[data-game-ready='true'] .dino-cactus,
+.dino-scene[data-game-ready='true'] .dino-bird,
+.dino-scene[data-game-ready='true'] .dino-cliff {
 	left: 0;
 	right: auto;
 	will-change: transform;
+}
+
+.dino-scene[data-game-ready='true'] .dino-bird-two {
+	transform: none;
 }
 
 .dino-scene.game-running .dino-ground-line {
@@ -468,6 +474,76 @@ img {
 	right: -0.42rem;
 	top: 0.45rem;
 	height: 0.9rem;
+}
+
+.dino-cactus-short {
+	height: 1.2rem;
+}
+
+.dino-cactus-short::before {
+	left: -0.36rem;
+	top: 0.45rem;
+	height: 0.55rem;
+}
+
+.dino-cactus-short::after {
+	display: none;
+}
+
+.dino-cactus-double {
+	width: 0.72rem;
+	height: 2.15rem;
+	border-left: 0.28rem solid #4f4f4f;
+	border-right: 0.28rem solid #4f4f4f;
+	background: transparent;
+}
+
+.dino-cactus-double::before {
+	left: -0.55rem;
+	top: 0.8rem;
+	height: 0.75rem;
+}
+
+.dino-cactus-double::after {
+	right: -0.55rem;
+	top: 0.5rem;
+	height: 1rem;
+}
+
+.dino-cliff {
+	position: absolute;
+	z-index: 3;
+	bottom: 0.63rem;
+	height: 0.62rem;
+	background: var(--background);
+	border-left: 0.14rem solid #4b4b4b;
+	border-right: 0.14rem solid #4b4b4b;
+}
+
+.dino-cliff::before,
+.dino-cliff::after {
+	content: '';
+	position: absolute;
+	top: -0.12rem;
+	width: 0.75rem;
+	height: 0.12rem;
+	background: #4b4b4b;
+}
+
+.dino-cliff::before {
+	right: 100%;
+}
+
+.dino-cliff::after {
+	left: 100%;
+}
+
+.dino-cliff-wide {
+	width: 4.6rem;
+}
+
+.dino-cliff-narrow {
+	width: 2.8rem;
 }
 
 .dino-pebble {

@@ -49,8 +49,8 @@ const recentPosts = posts.slice(0, 8);
 							<span class="dino-cloud dino-cloud-one"></span>
 							<span class="dino-cloud dino-cloud-two"></span>
 							<span class="dino-cloud dino-cloud-three"></span>
-							<span class="dino-bird dino-bird-one"><span></span></span>
-							<span class="dino-bird dino-bird-two"><span></span></span>
+							<span class="dino-bird dino-bird-one" data-dino-obstacle data-speed="1.08"><span></span></span>
+							<span class="dino-bird dino-bird-two" data-dino-obstacle data-speed="1.16"><span></span></span>
 							<div class="pixel-avatar dino-avatar">
 								{[
 									[7, 0], [8, 0], [9, 0], [10, 0], [11, 0],
@@ -69,8 +69,12 @@ const recentPosts = posts.slice(0, 8);
 								].map(([x, y]) => <span class="dino-pixel" style={`--x: ${x}; --y: ${y}`}></span>)}
 								<span class="dino-eye" style="--x: 8; --y: 1"></span>
 							</div>
-							<span class="dino-cactus dino-cactus-tall"></span>
-							<span class="dino-cactus dino-cactus-small"></span>
+							<span class="dino-cactus dino-cactus-tall" data-dino-obstacle></span>
+							<span class="dino-cactus dino-cactus-small" data-dino-obstacle></span>
+							<span class="dino-cactus dino-cactus-short" data-dino-obstacle></span>
+							<span class="dino-cactus dino-cactus-double" data-dino-obstacle></span>
+							<span class="dino-cliff dino-cliff-wide" data-dino-obstacle aria-hidden="true"></span>
+							<span class="dino-cliff dino-cliff-narrow" data-dino-obstacle aria-hidden="true"></span>
 							<span class="dino-pebble dino-pebble-one"></span>
 							<span class="dino-pebble dino-pebble-two"></span>
 							<span class="dino-pebble dino-pebble-three"></span>
@@ -113,7 +117,7 @@ const recentPosts = posts.slice(0, 8);
 
 			if (scene instanceof HTMLElement) {
 				const dino = scene.querySelector('.dino-avatar');
-				const obstacles = [...scene.querySelectorAll('.dino-cactus')];
+				const obstacles = [...scene.querySelectorAll('[data-dino-obstacle]')];
 				const scoreElement = scene.querySelector('[data-dino-score]');
 				const messageElement = scene.querySelector('[data-dino-message]');
 
@@ -136,7 +140,13 @@ const recentPosts = posts.slice(0, 8);
 
 					const placeObstacles = () => {
 						const width = scene.clientWidth;
-						obstaclePositions = [width + 100, width + 460];
+						let nextPosition = width + 100;
+						obstaclePositions = obstacles.map((obstacle, index) => {
+							const position = nextPosition;
+							const baseGap = obstacle.classList.contains('dino-cliff') ? 390 : 285;
+							nextPosition += baseGap + ((index * 83) % 150);
+							return position;
+						});
 						obstacles.forEach((obstacle, index) => {
 							obstacle.style.transform = `translateX(${obstaclePositions[index]}px)`;
 						});
@@ -166,10 +176,16 @@ const recentPosts = posts.slice(0, 8);
 						const obstacleRect = obstacle.getBoundingClientRect();
 						const dinoPadding = 9;
 						const obstaclePadding = 3;
+						const horizontalOverlap =
+							dinoRect.right - dinoPadding > obstacleRect.left - obstaclePadding &&
+							dinoRect.left + dinoPadding < obstacleRect.right + obstaclePadding;
+
+						if (obstacle.classList.contains('dino-cliff')) {
+							return horizontalOverlap && dinoRect.bottom > obstacleRect.top + 2;
+						}
 
 						return (
-							dinoRect.right - dinoPadding > obstacleRect.left - obstaclePadding &&
-							dinoRect.left + dinoPadding < obstacleRect.right + obstaclePadding &&
+							horizontalOverlap &&
 							dinoRect.bottom - 5 > obstacleRect.top + obstaclePadding &&
 							dinoRect.top + 7 < obstacleRect.bottom
 						);
@@ -197,10 +213,16 @@ const recentPosts = posts.slice(0, 8);
 						scoreElement.textContent = formatScore(score);
 
 						obstaclePositions = obstaclePositions.map((position, index) => {
-							let nextPosition = position - speed * delta;
+							const speedMultiplier = Number(obstacles[index].dataset.speed || 1);
+							let nextPosition = position - speed * speedMultiplier * delta;
 							if (nextPosition < -45) {
 								const furthest = Math.max(...obstaclePositions);
-								nextPosition = Math.max(scene.clientWidth + 80, furthest + 260 + Math.random() * 240);
+								const isCliff = obstacles[index].classList.contains('dino-cliff');
+								const minimumGap = isCliff ? 390 : 270;
+								nextPosition = Math.max(
+									scene.clientWidth + 100,
+									furthest + minimumGap + Math.random() * 210,
+								);
 							}
 							obstacles[index].style.transform = `translateX(${nextPosition}px)`;
 							return nextPosition;
