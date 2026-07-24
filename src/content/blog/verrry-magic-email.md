@@ -15,4 +15,4 @@ I find the good points of writing blog.
 
 <https://ibb.co/nNVWpBk3>
 
-who is the angle Talon? HAHAHA)
+who is the angel Talon? HAHAHA)
