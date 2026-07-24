@@ -39,11 +39,11 @@ const recentPosts = posts.slice(0, 8);
 							class="dino-scene"
 							data-dino-game
 							role="application"
-							aria-label="Pixel dinosaur game. Press Space, Arrow Up, or tap to jump."
+							aria-label="Pixel dinosaur game. Press Space, Arrow Up, or tap to jump. Hold Arrow Down to duck."
 							tabindex="0"
 						>
 							<div class="dino-game-hud" aria-live="polite">
-								<span data-dino-message>SPACE / TAP TO START</span>
+								<span data-dino-message>SPACE JUMP / ↓ DUCK / TAP JUMP</span>
 								<span>SCORE <strong data-dino-score>00000</strong></span>
 							</div>
 							<span class="dino-cloud dino-cloud-one"></span>
@@ -132,6 +132,7 @@ const recentPosts = posts.slice(0, 8);
 					let velocity = 0;
 					let score = 0;
 					let speed = 285;
+					let isCrouching = false;
 					let previousTime = 0;
 					let animationFrame = 0;
 					let obstaclePositions = [];
@@ -156,6 +157,12 @@ const recentPosts = posts.slice(0, 8);
 						messageElement.textContent = message;
 					};
 
+					const renderDino = () => {
+						const crouchScale = isCrouching && jumpHeight <= 1 ? 0.46 : 1;
+						dino.style.transform = `translateY(${-jumpHeight}px) scaleY(${crouchScale})`;
+						dino.classList.toggle('is-crouching', crouchScale < 1);
+					};
+
 					const reset = () => {
 						cancelAnimationFrame(animationFrame);
 						state = 'idle';
@@ -163,12 +170,13 @@ const recentPosts = posts.slice(0, 8);
 						velocity = 0;
 						score = 0;
 						speed = 285;
+						isCrouching = false;
 						previousTime = 0;
-						dino.style.transform = '';
+						renderDino();
 						scoreElement.textContent = '00000';
 						scene.classList.remove('game-running', 'game-over');
 						placeObstacles();
-						setMessage('SPACE / TAP TO START');
+						setMessage('SPACE JUMP / ↓ DUCK / TAP JUMP');
 					};
 
 					const overlaps = (obstacle) => {
@@ -206,7 +214,7 @@ const recentPosts = posts.slice(0, 8);
 						velocity -= 1850 * delta;
 						jumpHeight = Math.max(0, jumpHeight + velocity * delta);
 						if (jumpHeight === 0 && velocity < 0) velocity = 0;
-						dino.style.transform = `translateY(${-jumpHeight}px)`;
+						renderDino();
 
 						speed = Math.min(520, 285 + score * 0.45);
 						score += delta * 10;
@@ -257,15 +265,31 @@ const recentPosts = posts.slice(0, 8);
 					});
 
 					window.addEventListener('keydown', (event) => {
-						if (event.code !== 'Space' && event.code !== 'ArrowUp') return;
 						const target = event.target;
 						if (
 							target instanceof HTMLInputElement ||
 							target instanceof HTMLTextAreaElement ||
 							target instanceof HTMLSelectElement
 						) return;
+						if (event.code === 'ArrowDown') {
+							event.preventDefault();
+							if (state === 'running' && jumpHeight <= 1) {
+								isCrouching = true;
+								renderDino();
+								setMessage('DUCK!');
+							}
+							return;
+						}
+						if (event.code !== 'Space' && event.code !== 'ArrowUp') return;
 						event.preventDefault();
 						jump();
+					});
+
+					window.addEventListener('keyup', (event) => {
+						if (event.code !== 'ArrowDown') return;
+						isCrouching = false;
+						renderDino();
+						if (state === 'running') setMessage('RUN!');
 					});
 
 					window.addEventListener('resize', () => {

@@ -227,6 +227,11 @@ img {
 	background: transparent;
 	z-index: 2;
 	will-change: transform;
+	transform-origin: left bottom;
+}
+
+.dino-avatar.is-crouching {
+	filter: brightness(0.92);
 }
 
 .dino-pixel,
@@ -369,7 +374,7 @@ img {
 
 .dino-bird-two {
 	right: 29%;
-	bottom: 7.05rem;
+	bottom: 4.55rem;
 	transform: scale(0.78);
 	opacity: 0.8;
 }
