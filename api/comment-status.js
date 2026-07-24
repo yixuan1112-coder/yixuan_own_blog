@@ -55,6 +55,7 @@ function safeBlogPath(value) {
 }
 
 async function findDiscussionNumber(token, path) {
+	const expectedTerm = normalizeDiscussionTerm(path);
 	let cursor = null;
 	do {
 		const data = await githubGraphql(
@@ -70,12 +71,18 @@ async function findDiscussionNumber(token, path) {
 			{ owner: REPOSITORY_OWNER, name: REPOSITORY_NAME, cursor },
 		);
 		const discussions = data.repository?.discussions;
-		const match = discussions?.nodes.find((discussion) => discussion.title.includes(path));
+		const match = discussions?.nodes.find(
+			(discussion) => normalizeDiscussionTerm(discussion.title) === expectedTerm,
+		);
 		if (match) return match.number;
 		if (!discussions?.pageInfo.hasNextPage) return null;
 		cursor = discussions.pageInfo.endCursor;
 	} while (cursor);
 	return null;
+}
+
+function normalizeDiscussionTerm(value) {
+	return value.trim().replace(/^\/+|\/+$/g, '');
 }
 
 async function hasComment(token, login, discussionNumber) {
