@@ -39,11 +39,11 @@ const recentPosts = posts.slice(0, 8);
 							class="dino-scene"
 							data-dino-game
 							role="application"
-							aria-label="Pixel dinosaur game. Press Space repeatedly to jump higher, Arrow Up or tap to jump, and hold Arrow Down to duck."
+							aria-label="Pixel dinosaur game. Press Space or Arrow Up repeatedly to jump higher, tap to jump, and hold Arrow Down to duck."
 							tabindex="0"
 						>
 							<div class="dino-game-hud" aria-live="polite">
-								<span data-dino-message>SPACE ×3 HIGH JUMP / ↓ DUCK</span>
+								<span data-dino-message>SPACE / ↑ ×3 HIGH JUMP / ↓ DUCK</span>
 								<span>SCORE <strong data-dino-score>00000</strong></span>
 							</div>
 							<span class="dino-cloud dino-cloud-one"></span>
@@ -314,7 +314,7 @@ const recentPosts = posts.slice(0, 8);
 						if (event.code !== 'Space' && event.code !== 'ArrowUp') return;
 						event.preventDefault();
 						if (event.repeat) return;
-						jump(event.code === 'Space');
+						jump(true);
 					});
 
 					window.addEventListener('keyup', (event) => {
