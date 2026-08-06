@@ -222,16 +222,3 @@ Memory
 Guardrails
 ↓
 确保整个过程安全、稳定、可控
-
-# 一句话总结
-
-一个优秀的 AI Agent 并不是单纯依赖大模型，而是通过 **Role + Skills + Tools + Workflow + Memory + Guardrails** 六个模块协同工作：
-
-* **Role** 定义「我是谁、负责什么」；
-* **Skills** 定义「我应该如何思考」；
-* **Tools** 定义「我能够执行哪些操作」；
-* **Workflow** 定义「我按什么流程完成任务」；
-* **Memory** 定义「我如何积累和利用经验」；
-* **Guardrails** 定义「我不能做什么，以及如何保持安全与稳定」。
-
-这六个模块共同构成了现代 AI Agent 的基础架构，也是大多数高质量 Agent 系统（包括开发助手、研究助手、CTF Agent、企业 Agent 等）的核心设计思想。
