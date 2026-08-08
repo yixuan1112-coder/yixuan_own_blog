@@ -5,7 +5,7 @@ type: thoughts
 pubDate: Aug 08 2026
 updatedDate: Aug 08 2026
 ---
-Sometimes I just become very sensitive. I don't know why. I randomly start to think of some difficult problems but I don't really know the causes to make me to think about this questions.
+Sometimes I just become very sensitive. I don't know why. I randomly start to think of some difficult problems but I don't really know the causes to make me to think about these questions.
 
 Whenever I start to think something strange, I told myself to calm down.
 
