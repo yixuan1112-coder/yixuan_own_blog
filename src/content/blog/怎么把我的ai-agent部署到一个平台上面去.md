@@ -1,5 +1,5 @@
 ---
-title: Deploy my own cybersecurity website steps by steps
+title: Deploy my own cyber security website steps by steps
 description: August 13th
 type: thoughts
 pubDate: Aug 13 2026
