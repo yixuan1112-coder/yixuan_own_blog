@@ -5,7 +5,7 @@ type: thoughts
 pubDate: Aug 13 2026
 updatedDate: Aug 13 2026
 ---
-今天一开始我本来打算chill一天把我写的平台deploy了，因为这周二已经超额完成任务了，所以今天就随性一点：
+今天一开始我本来打算chill一天把我写的平台deploy了，因为这周二已经超额完成任务了，所以今天就随性一点~  like this:
 
 1：首先，大致的逻辑是这样的：本地运行 → 云服务器 → Docker 隔离 → 域名 → HTTPS → 公开访问
 
