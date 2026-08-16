@@ -39,4 +39,8 @@ updatedDate: Aug 16 2026
 
 9：PC（系统现在应该去哪里执行代码）：绝对跳转/相对跳转，相对寻址（偏移量？）（pipline让pc一直领先8）
 
-10：
+10：指令集（MOV,MOVS,LDR,LDRB,MOVN,using loop to copy few data into other address;
+
+“S” will influence the state ;signed and unsigned state change;sequence matters when it SUB(there is RSB); (复习一下2’s compliment!!!!); NZCV； the logic expressions; 加减运算的时候一定要注意V和C符号的定义；条件运算符之类；用移位统计1的个数。
+
+11：模块化
