@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 const sections = [
 	{ href: '/blog/', label: 'posts' },
 	{ href: '/blog/resources/', label: 'resources' },
@@ -11,7 +12,10 @@ const pathname = Astro.url.pathname;
 ---
 
 <nav class="blog-nav" aria-label="Blog navigation">
-	{sections.map((section) => (
-		<a class:list={{ active: section.href === '/blog/' ? pathname === '/blog/' : pathname.startsWith(section.href) }} href={section.href}>[{section.label}]</a>
-	))}
+	{sections.map((section) => {
+		const href = url(section.href);
+		return (
+			<a class:list={{ active: section.href === '/blog/' ? pathname === href : pathname.startsWith(href) }} href={href}>[{section.label}]</a>
+		);
+	})}
 </nav>

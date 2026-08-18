@@ -1,4 +1,5 @@
 ---
+import { url } from '../lib/url';
 const links = [
 	{ href: '/', label: 'home' },
 	{ href: '/blog/', label: 'blog' },
@@ -11,14 +12,17 @@ const links = [
 ];
 
 const pathname = Astro.url.pathname;
-const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+// Compare against the base-prefixed href: under a `base`, Astro.url.pathname
+// already includes it, so comparing with the bare href never matches.
+const isActive = (href: string) =>
+	href === '/' ? pathname === url('/') : pathname.startsWith(url(href));
 ---
 
 <header class="site-header">
 	<div class="site-header-inner">
-		<a href="/" class="pixel-title site-brand">YIXUAN</a>
+		<a href={url('/')} class="pixel-title site-brand">YIXUAN</a>
 		<nav class="site-nav" aria-label="Primary navigation">
-			{links.map((link) => <a class:list={{ active: isActive(link.href) }} href={link.href}>[{link.label}]</a>)}
+			{links.map((link) => <a class:list={{ active: isActive(link.href) }} href={url(link.href)}>[{link.label}]</a>)}
 		</nav>
 	</div>
 </header>
