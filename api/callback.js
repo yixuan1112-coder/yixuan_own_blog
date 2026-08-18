@@ -93,6 +93,8 @@ export default async function handler(req, res) {
 	}
 
 	const safeToken = JSON.stringify(token);
+	// Only ever hand the token to our own origin — it carries repo write scope.
+	const safeOrigin = JSON.stringify(new URL(siteUrl).origin);
 
 	res.setHeader('Content-Type', 'text/html; charset=utf-8');
 	// Decap CMS expects a two-step postMessage handshake (see decap-cms-lib-auth netlify-auth.js):
@@ -102,26 +104,29 @@ export default async function handler(req, res) {
 <html><body><script>
 (function () {
   const token = ${safeToken};
+  const allowedOrigin = ${safeOrigin};
   const data = JSON.stringify({ token: token, provider: 'github' });
   const successMsg = 'authorization:github:success:' + data;
 
-  function sendToken(origin) {
+  function sendToken() {
     if (!window.opener) {
       document.body.textContent = '登录成功。请关闭此窗口并返回 /admin/ 页面。';
       return;
     }
-    window.opener.postMessage(successMsg, origin || '*');
+    // Never post the token to '*': any window could otherwise read a repo-scoped token.
+    window.opener.postMessage(successMsg, allowedOrigin);
     window.close();
   }
 
   window.addEventListener('message', function (e) {
+    if (e.origin !== allowedOrigin) return;
     if (e.data === 'authorizing:github') {
-      sendToken(e.origin);
+      sendToken();
     }
   }, false);
 
   if (window.opener) {
-    window.opener.postMessage('authorizing:github', '*');
+    window.opener.postMessage('authorizing:github', allowedOrigin);
   } else {
     document.body.textContent = '登录成功。请关闭此窗口并返回 /admin/ 页面。';
   }

@@ -48,8 +48,11 @@ export function parseCookies(req) {
 			.filter(Boolean)
 			.map((part) => {
 				const index = part.indexOf('=');
+				// A cookie with no '=' would otherwise yield a corrupt [name, value] pair.
+				if (index < 0) return [part, ''];
 				return [part.slice(0, index), decodeURIComponent(part.slice(index + 1))];
-			}),
+			})
+			.filter(([name]) => name),
 	);
 }
 
