@@ -49,13 +49,47 @@ export default async function handler(req, res) {
 }
 
 function safeBlogPath(value) {
-	if (typeof value !== 'string') return null;
-	if (!/^\/blog\/[a-zA-Z0-9/_-]+\/$/.test(value)) return null;
+	if (typeof value !== 'string' || value.length > 512) return null;
+	// A post slug may contain non-ASCII characters (Chinese titles), and the
+	// browser hands us `location.pathname` percent-encoded, so the segment can
+	// legitimately contain `%` and multi-byte characters. Restrict the shape
+	// (exactly one segment under /blog/, no query, fragment or traversal)
+	// rather than the alphabet.
+	if (!/^\/blog\/[^/?#]+\/$/.test(value)) return null;
+	if (value.includes('..')) return null;
 	return value;
 }
 
+/**
+ * Giscus stores the discussion title from its `pathname` mapping, which may be
+ * the percent-encoded or the decoded form depending on how the page was loaded.
+ * Compare against every equivalent spelling so Chinese slugs match either way.
+ */
+function discussionTermVariants(path) {
+	const variants = new Set();
+	const add = (value) => {
+		if (typeof value === 'string' && value) variants.add(normalizeDiscussionTerm(value));
+	};
+	add(path);
+	let decoded = null;
+	try {
+		decoded = decodeURIComponent(path);
+		add(decoded);
+	} catch {
+		// leave the raw form as the only variant
+	}
+	if (decoded) {
+		try {
+			add(encodeURI(decoded));
+		} catch {
+			// ignore
+		}
+	}
+	return variants;
+}
+
 async function findDiscussionNumber(token, path) {
-	const expectedTerm = normalizeDiscussionTerm(path);
+	const expectedTerms = discussionTermVariants(path);
 	let cursor = null;
 	do {
 		const data = await githubGraphql(
@@ -71,8 +105,8 @@ async function findDiscussionNumber(token, path) {
 			{ owner: REPOSITORY_OWNER, name: REPOSITORY_NAME, cursor },
 		);
 		const discussions = data.repository?.discussions;
-		const match = discussions?.nodes.find(
-			(discussion) => normalizeDiscussionTerm(discussion.title) === expectedTerm,
+		const match = discussions?.nodes.find((discussion) =>
+			expectedTerms.has(normalizeDiscussionTerm(discussion.title)),
 		);
 		if (match) return match.number;
 		if (!discussions?.pageInfo.hasNextPage) return null;
